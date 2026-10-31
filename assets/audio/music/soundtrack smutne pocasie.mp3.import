@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://r0f80wyqspsk"
+path="res://.godot/imported/soundtrack smutne pocasie.mp3-357ca1889d793466a11904ad4a26a1d4.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/music/soundtrack smutne pocasie.mp3"
+dest_files=["res://.godot/imported/soundtrack smutne pocasie.mp3-357ca1889d793466a11904ad4a26a1d4.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

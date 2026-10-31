@@ -13,6 +13,7 @@ var start_pos: Vector2
 
 @onready var loading_text: Control = Global.loading_text
 @onready var ship: Sprite2D = $Ship
+@onready var music: AudioStreamPlayer = $"../weatherManager/Music"
 
 
 func _ready() -> void:
@@ -27,8 +28,8 @@ func _process(delta: float) -> void:
 		loading_text.get_children()[1].text = "Loading..."
 		await get_tree().process_frame
 		Global.loadWaterEnviroment.emit()
-		$"../BackgroundmusicHandler/ShopSoundtrack".stop()
-		$"../BackgroundmusicHandler/ShopAmbience".volume_db = - 10
+		music.stop()
+		
 
 
 #ocean bob
@@ -47,3 +48,4 @@ func _on_enter_area_body_exited(body: Node2D) -> void:
 	if body is CharacterBody2D:
 		playerInside = false
 		press_e.hide()
+		

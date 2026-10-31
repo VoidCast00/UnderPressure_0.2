@@ -28,6 +28,7 @@ func _on_enter_box_body_entered(body: CharacterBody2D) -> void:
 func _on_enter_box_body_exited(body: CharacterBody2D) -> void:
 	playerInside = false
 	press_e.hide()
+	shop_ui.visible = false
 
 
 func _on_easter_egg_pressed() -> void:
