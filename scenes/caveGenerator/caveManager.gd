@@ -1,132 +1,82 @@
+class_name CaveManager
 extends Node
 
-#map
+#generates the cave and its ores, and draws them
+#mining is in MiningBlocksManager
+
+#=== settings ==================================================================
+
 const HALF_SIZE := 100  #map is 200x200
+const NONE := Vector2i(-1, -1)  #"no tile"
 
-#tiles
-const NONE := Vector2i(-1, -1)
-const FULL_ROCK := Vector2i(1, 1)
-const GOLD_OFFSET := Vector2i(0, 6)
-const CRYSTAL_TYPE := "amethyst"
-
-#seconds to mine each material
-const MINING_TIMES := {
-	"rock": 0.3,
-	"gold": 1.5,
-	"ruby": 1.8,
-	"amethyst": 1.0,
+#atlas source id of each ore png in the ore tileset (check in the TileSet editor)
+const ORE_SOURCES := {
+	"iron": 0,
+	"gold": 1,
+	"amethyst": 2,
+	"ruby": 3,
 }
 
-#rock tiles crystals cant grow on
-const CRYSTAL_BLOCKED := [
+#crystals grow out of walls (2x2 png, one tile per direction)
+#every other ore png has the same layout as the rock png, so ore tile = rock tile
+const CRYSTALS := ["amethyst", "ruby"]
+
+#ore spawning: every ore has its own noise, it spawns where the noise is above "amount"
+#  amount: higher = rarer
+#  frequency: higher = smaller, more scattered patches
+#checked top to bottom and the first match wins, so rare ores go first
+const ORE_SPAWNS := [
+	{"ore": "ruby", "amount": 0.85, "frequency": 0.027},
+	{"ore": "amethyst", "amount": 0.8, "frequency": 0.027},
+	{"ore": "gold", "amount": 0.4, "frequency": 0.105},
+	{"ore": "iron", "amount": 0.3, "frequency": 0.08},
+]
+
+#non-crystal ores only spawn this deep in the rock (caveNoise value, rock starts at 0)
+const ORE_MIN_DEPTH := 0.1
+
+#rock tiles (in CaveTilemap.png)
+const FULL_ROCK := Vector2i(1, 1)
+const CRYSTAL_BLOCKED := [  #crystals cant grow on these
 	Vector2i(0, 4), Vector2i(1, 4), Vector2i(1, 1),
 	Vector2i(0, 5), Vector2i(1, 5),
 ]
 
-#crystal tile by wall direction
+#crystal tile (in the crystal png) by direction away from the wall
 const CRYSTAL_TILES := {
-	Vector2i(0, -1): Vector2i(1, 12),
-	Vector2i(0, 1): Vector2i(0, 13),
-	Vector2i(-1, 0): Vector2i(0, 12),
-	Vector2i(1, 0): Vector2i(1, 13),
+	Vector2i(0, -1): Vector2i(1, 0),
+	Vector2i(0, 1): Vector2i(0, 1),
+	Vector2i(-1, 0): Vector2i(0, 0),
+	Vector2i(1, 0): Vector2i(1, 1),
 }
 
+#=== nodes =====================================================================
+
 @export var caveNoise: NoiseTexture2D
-@export var crystalNoise: NoiseTexture2D
-@export var goldNoise: NoiseTexture2D
 @export var caveTilemap: TileMapLayer
 @export var oreTilemap: TileMapLayer
 @export var transport: StaticBody2D
-@export var block_break: AudioStreamPlayer
-@export var gold_break: AudioStreamPlayer
-@export var ruby_break: AudioStreamPlayer
-@export var amethist_break: AudioStreamPlayer
 
-@export var cpu_particles_2d: CPUParticles2D
-@export var after_break_par: CPUParticles2D
+#=== state =====================================================================
 
-
-#ores: cell : gold / amethyst
+#which cell has which ore (cell -> "gold", "amethyst"...). no entry = plain rock
 var ores := {}
 
-#mining
-var is_mining := false
-var mining_cell := Vector2i.ZERO
-var mining_type := ""
-var mining_timer := 0.0
+#ore -> its spawn noise (made in _make_ore_noises)
+var ore_noises := {}
 
 
 func _ready() -> void:
 	generateCaveSystem()
 
 
-func _process(delta: float) -> void:
-	
-	
-	if not is_mining:
-		return
-		
+#=== generation ================================================================
 
-	mining_timer += delta
-	if mining_timer >= MINING_TIMES.get(mining_type, 1.0) / Upgrades.mining_speed():
-		Global.mined.emit(mining_type)
-		match mining_type:
-			"rock":
-				block_break.play()
-			"gold":
-				gold_break.play()
-			"amethyst":
-				amethist_break.play()
-			"ruby":
-				ruby_break.play()
-
-		_remove_cells([mining_cell])
-		stopMining()
-
-
-
-
-#mining (global position)
-func startMining(global_pos: Vector2) -> void:
-	var cell :=  caveTilemap.local_to_map(caveTilemap.to_local(global_pos))
-
-	#already mining this cell
-	if is_mining and cell == mining_cell:
-		return
-
-	#nothing there
-	if caveTilemap.get_cell_source_id(cell) == -1:
-		stopMining()
-		return
-
-	mining_cell = cell
-	mining_type = ores.get(cell, "rock")
-	mining_timer = 0.0
-	is_mining = true
-	cpu_particles_2d.global_position = global_pos
-	cpu_particles_2d.emitting = true
-
-
-func stopMining() -> void:
-	cpu_particles_2d.emitting = false
-	breakPar(cpu_particles_2d.global_position)
-	is_mining = false
-	mining_cell = Vector2i.ZERO
-	mining_type = ""
-	mining_timer = 0.0
-	
-func breakPar(position: Vector2) -> void:
-	after_break_par.global_position = position
-	after_break_par.emitting = true
-
-#generate
 func generateCaveSystem() -> void:
 	#random seed so every run generates a different cave
 	randomize()
 	caveNoise.noise.seed = randi()
-	crystalNoise.noise.seed = randi()
-	goldNoise.noise.seed = randi()
-
+	_make_ore_noises()
 
 	#rock
 	var rock: Array[Vector2i] = []
@@ -139,21 +89,53 @@ func generateCaveSystem() -> void:
 	#crater first so ores match the final shape
 	explode(transport.global_position, 10)
 
-	#pick ores
+	#ores
 	for cell in rock:
 		if caveTilemap.get_cell_source_id(cell) == -1:
 			continue
-		if crystalNoise.noise.get_noise_2d(cell.x, cell.y) > 0.8 and _crystal_tile(cell) != NONE and oreTilemap.get_cell_source_id(cell) == -1:
-			ores[cell] = CRYSTAL_TYPE
-		elif goldNoise.noise.get_noise_2d(cell.x, cell.y) > 0.4 and caveNoise.noise.get_noise_2d(cell.x, cell.y) > 0.1:
-			ores[cell] = "gold"
-
-	#draw ores
-	for cell in ores.keys():
-		_update_ore(cell)
+		var ore := _pick_ore(cell)
+		if ore != "":
+			ores[cell] = ore
+			_update_ore(cell)
 
 
-#explosion
+#one random noise per ore
+func _make_ore_noises() -> void:
+	for spawn in ORE_SPAWNS:
+		var noise := FastNoiseLite.new()
+		noise.seed = randi()
+		noise.frequency = spawn.frequency
+		if spawn.ore in CRYSTALS:
+			#thin lines, so crystals come in small clusters
+			noise.noise_type = FastNoiseLite.TYPE_PERLIN
+			noise.fractal_type = FastNoiseLite.FRACTAL_RIDGED
+			noise.fractal_octaves = 9
+		else:
+			noise.fractal_octaves = 7
+		ore_noises[spawn.ore] = noise
+
+
+#which ore spawns on this rock cell, or "" for plain rock
+func _pick_ore(cell: Vector2i) -> String:
+	for spawn in ORE_SPAWNS:
+		var ore: String = spawn.ore
+		var noise: FastNoiseLite = ore_noises[ore]
+		if noise.get_noise_2d(cell.x, cell.y) <= spawn.amount:
+			continue
+
+		if ore in CRYSTALS:
+			#needs a wall to grow out of
+			if _crystal_tile(cell) == NONE:
+				continue
+		elif caveNoise.noise.get_noise_2d(cell.x, cell.y) < ORE_MIN_DEPTH:
+			continue
+
+		return ore
+
+	return ""
+
+
+#removes rock in a circle (outer ring is ragged)
 func explode(global_pos: Vector2, radius: int) -> void:
 	var center := caveTilemap.local_to_map(caveTilemap.to_local(global_pos))
 	var cells: Array[Vector2i] = []
@@ -170,9 +152,13 @@ func explode(global_pos: Vector2, radius: int) -> void:
 			if caveTilemap.get_cell_source_id(cell) != -1:
 				cells.append(cell)
 
-	_remove_cells(cells)
+	remove_cells(cells)
 
-func _remove_cells(cells: Array[Vector2i]) -> void:
+
+#=== drawing ===================================================================
+
+#removes rock, then redraws ores around it (autotiling changes nearby rock shapes)
+func remove_cells(cells: Array[Vector2i]) -> void:
 	if cells.is_empty():
 		return
 
@@ -190,24 +176,32 @@ func _remove_cells(cells: Array[Vector2i]) -> void:
 		_update_ore(c)
 
 
+#draws the ore on this cell, or removes it if it cant be there anymore
 func _update_ore(cell: Vector2i) -> void:
-	var rock_tile := caveTilemap.get_cell_atlas_coords(cell)
-	var ore_tile := NONE
+	var ore: String = ores[cell]
+	var tile := _ore_tile(cell, ore)
 
-	if rock_tile != NONE:
-		if ores[cell] == "gold":
-			ore_tile = rock_tile + GOLD_OFFSET
-		else:
-			ore_tile = _crystal_tile(cell)
-
-	if ore_tile == NONE:
+	if tile == NONE:
 		ores.erase(cell)
 		oreTilemap.erase_cell(cell)
 	else:
-		oreTilemap.set_cell(cell, 0, ore_tile)
+		oreTilemap.set_cell(cell, ORE_SOURCES[ore], tile)
 
 
-#crystal tile facing the wall, or NONE
+#which tile of the ore png to draw on this cell, or NONE
+func _ore_tile(cell: Vector2i, ore: String) -> Vector2i:
+	#rock is gone, so the ore is gone
+	if caveTilemap.get_cell_source_id(cell) == -1:
+		return NONE
+
+	if ore in CRYSTALS:
+		return _crystal_tile(cell)
+
+	#same shape as the rock under it
+	return caveTilemap.get_cell_atlas_coords(cell)
+
+
+#crystal tile facing away from a wall, or NONE
 func _crystal_tile(cell: Vector2i) -> Vector2i:
 	if caveTilemap.get_cell_atlas_coords(cell) in CRYSTAL_BLOCKED:
 		return NONE

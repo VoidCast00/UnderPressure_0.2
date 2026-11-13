@@ -18,15 +18,6 @@ var money_tween: Tween
 @export var upgradesList: VBoxContainer
 @export var trait_upgrades: VBoxContainer
 
-const SELL_AMOUNT := {
-	"rock": 1,
-	"gold": 10,
-	"ruby": 16,
-	"amethyst": 6,
-}
-
-
-
 func _ready() -> void:
 	Sell_All.pressed.connect(sellAll)
 	back0.pressed.connect(go_back)
@@ -54,7 +45,7 @@ func updateSellItemList() -> void:
 		var itemObj:ItemObjUI= itemScene.instantiate()
 		itemObj.itemCount = Inventory.items[item]
 		itemObj.itemName = str(item)
-		itemObj.sellAmount = SELL_AMOUNT[item]
+		itemObj.sellAmount = Global.SELL_PRICES.get(item, 0)
 		itemObj.parent = self
 		item_list.add_child(itemObj)
 
@@ -76,7 +67,7 @@ func sellAll() -> void:
 	buttons.hide()
 	var sell_value := 0
 	for item in Inventory.items:
-		sell_value += SELL_AMOUNT.get(item, 0) * Inventory.items[item]
+		sell_value += Global.SELL_PRICES.get(item, 0) * Inventory.items[item]
 	#nothing to sell
 	if sell_value <= 0:
 		return

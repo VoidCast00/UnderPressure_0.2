@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bvp36ag63akha"
-path="res://.godot/imported/Anchor.png-6d53bc2124134e7ae4c89bfb7d932e39.ctex"
+uid="uid://cgfu70u4pxuky"
+path="res://.godot/imported/Ruby.png-166cfe9f61556a28de42a956871650dc.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Anchor.png"
-dest_files=["res://.godot/imported/Anchor.png-6d53bc2124134e7ae4c89bfb7d932e39.ctex"]
+source_file="res://scenes/caveGenerator/Ruby.png"
+dest_files=["res://.godot/imported/Ruby.png-166cfe9f61556a28de42a956871650dc.ctex"]
 
 [params]
 
