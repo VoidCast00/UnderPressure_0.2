@@ -37,11 +37,11 @@ const CRYSTAL_TILES := {
 @export var caveTilemap: TileMapLayer
 @export var oreTilemap: TileMapLayer
 @export var transport: StaticBody2D
+@export var block_break: AudioStreamPlayer
+@export var gold_break: AudioStreamPlayer
+@export var ruby_break: AudioStreamPlayer
+@export var amethist_break: AudioStreamPlayer
 
-@onready var block_break: AudioStreamPlayer = $"../Cave/BlockBreak"
-@onready var gold_break: AudioStreamPlayer = $"../Cave/goldBreak"
-@onready var ruby_break: AudioStreamPlayer = $"../Cave/rubyBreak"
-@onready var amethist_break: AudioStreamPlayer = $"../Cave/amethistBreak"
 @export var cpu_particles_2d: CPUParticles2D
 @export var after_break_par: CPUParticles2D
 

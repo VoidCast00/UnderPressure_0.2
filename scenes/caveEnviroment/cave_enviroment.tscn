@@ -1,4 +1,4 @@
-[gd_scene format=4 uid="uid://ba7vddmnq4tp"]
+[gd_scene format=3 uid="uid://ba7vddmnq4tp"]
 
 [ext_resource type="PackedScene" uid="uid://dcbh3t1vcddv8" path="res://scenes/player/player.tscn" id="1_ibr66"]
 [ext_resource type="Script" uid="uid://dya6n0ugxdo3n" path="res://scenes/caveEnviroment/subpixelCamera.gd" id="2_iqo5d"]
@@ -14,6 +14,8 @@
 [ext_resource type="Texture2D" uid="uid://gdoku45w78rt" path="res://scenes/caveGenerator/CaveTilemap.png" id="9_w32iq"]
 [ext_resource type="AudioStream" uid="uid://b47ert4sspfga" path="res://assets/audio/music/caveSoundtrack.mp3" id="9_yf8om"]
 [ext_resource type="AudioStream" uid="uid://0i1gv5oi48j2" path="res://assets/audio/sfx/ambience/CaveAmbience.mp3" id="10_iqo5d"]
+[ext_resource type="Shader" uid="uid://6doqwo8c05l3" path="res://scenes/caveEnviroment/AnorchTransparency.gdshader" id="12_lob5d"]
+[ext_resource type="Texture2D" uid="uid://bvp36ag63akha" path="res://assets/Anchor.png" id="13_r1ge6"]
 [ext_resource type="AudioStream" uid="uid://0sye1sxv3rja" path="res://assets/audio/sfx/player/breathing.mp3" id="15_4h610"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3aygq"]
@@ -548,7 +550,7 @@ interpolation_mode = 1
 offsets = PackedFloat32Array(0, 0.5)
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_0rn35"]
-frequency = 0.0242
+frequency = 0.0484
 fractal_octaves = 8
 cellular_distance_function = 2
 domain_warp_enabled = true
@@ -576,15 +578,10 @@ noise = SubResource("FastNoiseLite_6kpao")
 [sub_resource type="CircleShape2D" id="CircleShape2D_pd0ml"]
 radius = 28.071337
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ti1pm"]
-texture = ExtResource("9_w32iq")
-texture_region_size = Vector2i(32, 32)
-7:14/0 = 0
-7:15/0 = 0
-
-[sub_resource type="TileSet" id="TileSet_x8mcd"]
-tile_size = Vector2i(32, 32)
-sources/0 = SubResource("TileSetAtlasSource_ti1pm")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pd0ml"]
+shader = ExtResource("12_lob5d")
+shader_parameter/fade_start = 1.0
+shader_parameter/fade_end = 0.0
 
 [node name="CaveEnviroment" type="Node2D" unique_id=647867534]
 
@@ -614,10 +611,32 @@ color = Color(0, 0, 0, 1)
 
 [node name="Player" parent="Entities" unique_id=698144906 node_paths=PackedStringArray("cave_tilemap", "world_generator") instance=ExtResource("1_ibr66")]
 position = Vector2(-126, -2)
-cave_tilemap = NodePath("../../Static/Cave")
+cave_tilemap = NodePath("../../Static/TileMaps/Cave")
 world_generator = NodePath("../../Static/WorldGenerator")
 
 [node name="Static" type="Node2D" parent="." unique_id=961585314]
+
+[node name="TileMaps" type="Node2D" parent="Static" unique_id=1852857242]
+
+[node name="Cave" type="TileMapLayer" parent="Static/TileMaps" unique_id=1651881328]
+texture_filter = 1
+tile_set = SubResource("TileSet_vsfrg")
+
+[node name="BlockBreak" type="AudioStreamPlayer" parent="Static/TileMaps/Cave" unique_id=420296650]
+stream = ExtResource("5_b6bav")
+
+[node name="goldBreak" type="AudioStreamPlayer" parent="Static/TileMaps/Cave" unique_id=1785020823]
+stream = ExtResource("7_w32iq")
+
+[node name="rubyBreak" type="AudioStreamPlayer" parent="Static/TileMaps/Cave" unique_id=584106232]
+stream = ExtResource("7_ti1pm")
+
+[node name="amethistBreak" type="AudioStreamPlayer" parent="Static/TileMaps/Cave" unique_id=1844322425]
+stream = ExtResource("8_4h610")
+
+[node name="OresTilemap" type="TileMapLayer" parent="Static/TileMaps" unique_id=46205129]
+texture_filter = 1
+tile_set = SubResource("TileSet_pd0ml")
 
 [node name="BreakingPar" type="CPUParticles2D" parent="Static" unique_id=674174720]
 modulate = Color(0.23537052, 0.23537052, 0.23537052, 1)
@@ -643,35 +662,18 @@ gravity = Vector2(0, 0)
 initial_velocity_min = 20.0
 initial_velocity_max = 50.0
 
-[node name="Cave" type="TileMapLayer" parent="Static" unique_id=1651881328]
-texture_filter = 1
-tile_map_data = PackedByteArray("AAD8/wEAAAAEAAAAAAD8/wIAAAACAAEAAAD8/wMAAAACAAIAAAD9/wEAAAACAAMAAAD7/wIAAAABAAQAAAD6/wEAAAAAAAAAAAD7/wEAAAABAAAAAAD7/wMAAAAAAAIAAAD6/wIAAAAAAAIAAAA=")
-tile_set = SubResource("TileSet_vsfrg")
-
-[node name="BlockBreak" type="AudioStreamPlayer" parent="Static/Cave" unique_id=420296650]
-stream = ExtResource("5_b6bav")
-
-[node name="goldBreak" type="AudioStreamPlayer" parent="Static/Cave" unique_id=1785020823]
-stream = ExtResource("7_w32iq")
-
-[node name="rubyBreak" type="AudioStreamPlayer" parent="Static/Cave" unique_id=584106232]
-stream = ExtResource("7_ti1pm")
-
-[node name="amethistBreak" type="AudioStreamPlayer" parent="Static/Cave" unique_id=1844322425]
-stream = ExtResource("8_4h610")
-
-[node name="OresTilemap" type="TileMapLayer" parent="Static" unique_id=46205129]
-texture_filter = 1
-tile_set = SubResource("TileSet_pd0ml")
-
-[node name="WorldGenerator" type="Node" parent="Static" unique_id=85954663 node_paths=PackedStringArray("caveTilemap", "oreTilemap", "transport", "cpu_particles_2d", "after_break_par")]
+[node name="WorldGenerator" type="Node" parent="Static" unique_id=85954663 node_paths=PackedStringArray("caveTilemap", "oreTilemap", "transport", "block_break", "gold_break", "ruby_break", "amethist_break", "cpu_particles_2d", "after_break_par")]
 script = ExtResource("3_g0opn")
 caveNoise = SubResource("NoiseTexture2D_yf8om")
 crystalNoise = SubResource("NoiseTexture2D_u0fae")
 goldNoise = SubResource("NoiseTexture2D_30230")
-caveTilemap = NodePath("../Cave")
-oreTilemap = NodePath("../OresTilemap")
+caveTilemap = NodePath("../TileMaps/Cave")
+oreTilemap = NodePath("../TileMaps/OresTilemap")
 transport = NodePath("../TransportUp")
+block_break = NodePath("../TileMaps/Cave/BlockBreak")
+gold_break = NodePath("../TileMaps/Cave/goldBreak")
+ruby_break = NodePath("../TileMaps/Cave/rubyBreak")
+amethist_break = NodePath("../TileMaps/Cave/amethistBreak")
 cpu_particles_2d = NodePath("../BreakingPar")
 after_break_par = NodePath("../AfterBreakPar")
 
@@ -690,19 +692,18 @@ collision_layer = 0
 position = Vector2(18, 17)
 shape = SubResource("CircleShape2D_pd0ml")
 
-[node name="Anchor" type="TileMapLayer" parent="Static/TransportUp" unique_id=590528014]
-z_index = 1
-tile_map_data = PackedByteArray("AAAAAAAAAAAHAA8AAAAAAP//AAAHAA4AAAAAAP7/AAAHAA4AAAAAAP3/AAAHAA4AAAAAAPz/AAAHAA4AAAAAAPv/AAAHAA4AAAAAAPr/AAAHAA4AAAAAAPn/AAAHAA4AAAAAAMf/AAAHAA4AAAAAAMj/AAAHAA4AAAAAAMn/AAAHAA4AAAAAAMr/AAAHAA4AAAAAAMv/AAAHAA4AAAAAAMz/AAAHAA4AAAAAAM3/AAAHAA4AAAAAAM7/AAAHAA4AAAAAAM//AAAHAA4AAAAAAND/AAAHAA4AAAAAANH/AAAHAA4AAAAAANL/AAAHAA4AAAAAANP/AAAHAA4AAAAAANT/AAAHAA4AAAAAANX/AAAHAA4AAAAAANb/AAAHAA4AAAAAANf/AAAHAA4AAAAAANj/AAAHAA4AAAAAANn/AAAHAA4AAAAAANr/AAAHAA4AAAAAANv/AAAHAA4AAAAAANz/AAAHAA4AAAAAAN3/AAAHAA4AAAAAAN7/AAAHAA4AAAAAAN//AAAHAA4AAAAAAOD/AAAHAA4AAAAAAOH/AAAHAA4AAAAAAOL/AAAHAA4AAAAAAOP/AAAHAA4AAAAAAOT/AAAHAA4AAAAAAOX/AAAHAA4AAAAAAOb/AAAHAA4AAAAAAOf/AAAHAA4AAAAAAOj/AAAHAA4AAAAAAOn/AAAHAA4AAAAAAOr/AAAHAA4AAAAAAOv/AAAHAA4AAAAAAOz/AAAHAA4AAAAAAO3/AAAHAA4AAAAAAO7/AAAHAA4AAAAAAO//AAAHAA4AAAAAAPD/AAAHAA4AAAAAAPH/AAAHAA4AAAAAAPL/AAAHAA4AAAAAAPP/AAAHAA4AAAAAAPT/AAAHAA4AAAAAAPX/AAAHAA4AAAAAAPb/AAAHAA4AAAAAAPf/AAAHAA4AAAAAAPj/AAAHAA4AAAAAAJ//AAAHAA4AAAAAAKD/AAAHAA4AAAAAAKH/AAAHAA4AAAAAAKL/AAAHAA4AAAAAAKP/AAAHAA4AAAAAAKT/AAAHAA4AAAAAAKX/AAAHAA4AAAAAAKb/AAAHAA4AAAAAAKf/AAAHAA4AAAAAAKj/AAAHAA4AAAAAAKn/AAAHAA4AAAAAAKr/AAAHAA4AAAAAAKv/AAAHAA4AAAAAAKz/AAAHAA4AAAAAAK3/AAAHAA4AAAAAAK7/AAAHAA4AAAAAAK//AAAHAA4AAAAAALD/AAAHAA4AAAAAALH/AAAHAA4AAAAAALL/AAAHAA4AAAAAALP/AAAHAA4AAAAAALT/AAAHAA4AAAAAALX/AAAHAA4AAAAAALb/AAAHAA4AAAAAALf/AAAHAA4AAAAAALj/AAAHAA4AAAAAALn/AAAHAA4AAAAAALr/AAAHAA4AAAAAALv/AAAHAA4AAAAAALz/AAAHAA4AAAAAAL3/AAAHAA4AAAAAAL7/AAAHAA4AAAAAAL//AAAHAA4AAAAAAMD/AAAHAA4AAAAAAMH/AAAHAA4AAAAAAML/AAAHAA4AAAAAAMP/AAAHAA4AAAAAAMT/AAAHAA4AAAAAAMX/AAAHAA4AAAAAAMb/AAAHAA4AAAAAAJH/AAAHAA4AAAAAAJL/AAAHAA4AAAAAAJP/AAAHAA4AAAAAAJT/AAAHAA4AAAAAAJX/AAAHAA4AAAAAAJb/AAAHAA4AAAAAAJf/AAAHAA4AAAAAAJj/AAAHAA4AAAAAAJn/AAAHAA4AAAAAAJr/AAAHAA4AAAAAAJv/AAAHAA4AAAAAAJz/AAAHAA4AAAAAAJ3/AAAHAA4AAAAAAJ7/AAAHAA4AAAA=")
-tile_set = SubResource("TileSet_x8mcd")
-
 [node name="Press_E" type="Label" parent="Static/TransportUp" unique_id=894248459]
-visible = false
 z_index = 10
 offset_top = -5.0
 offset_right = 111.0
 offset_bottom = 37.0
 theme_override_font_sizes/font_size = 10
 text = "press: E"
+
+[node name="Anchor" type="Sprite2D" parent="Static/TransportUp" unique_id=1391071265]
+material = SubResource("ShaderMaterial_pd0ml")
+position = Vector2(16, -191)
+texture = ExtResource("13_r1ge6")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1700140599]
 layer = -1

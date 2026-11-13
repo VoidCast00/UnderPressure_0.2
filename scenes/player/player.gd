@@ -86,7 +86,7 @@ func mine(_delta: float) -> void:
 
 	#step a bit inside the wall so we get the hit cell
 	var inside: Vector2 = hit - ray_cast.get_collision_normal() * 2.0
-	world_generator.startMining(inside)
+	world_generator.startMining(hit - ray_cast.get_collision_normal() )
 
 
 #returns hit point on the cave, or null
