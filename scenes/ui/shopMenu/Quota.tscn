@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://dm3smp37mlq81"]
+
+[ext_resource type="Script" uid="uid://biicdacx6ovr1" path="res://scenes/ui/shopMenu/quota.gd" id="1_w1oiu"]
+
+[node name="Control" type="Control" unique_id=95708323]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_w1oiu")
+
+[node name="Button" type="Button" parent="." unique_id=103719504]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -226.0
+offset_top = -180.0
+offset_right = 230.0
+offset_bottom = -43.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 100
+text = "Pay"
+
+[node name="Label" type="Label" parent="." unique_id=1720607076]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -290.0
+offset_top = -153.0
+offset_right = 314.0
+offset_bottom = 59.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 100
+text = "Quota:"

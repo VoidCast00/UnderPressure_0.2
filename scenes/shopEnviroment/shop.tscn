@@ -17,7 +17,7 @@
 distance = 69.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uaush"]
-size = Vector2(741.50006, 10.499573)
+size = Vector2(741.50006, 34.999557)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_528fk"]
 radius = 52.0
@@ -672,14 +672,14 @@ texture = ExtResource("2_vrkee")
 
 [node name="RainyParticles" type="CPUParticles2D" parent="Backround" unique_id=2102453419]
 z_index = 20
-position = Vector2(151.85713, -75.14287)
+position = Vector2(93.28571, -81.571434)
 scale = Vector2(2, 2)
 emitting = false
-amount = 300
+amount = 350
 texture = ExtResource("3_vffn7")
 lifetime = 1.65
 emission_shape = 3
-emission_rect_extents = Vector2(160, 1)
+emission_rect_extents = Vector2(195, 1)
 gravity = Vector2(-200, 980)
 angle_min = -10.0
 angle_max = -10.0
@@ -698,7 +698,7 @@ metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Floor" unique_id=1912339731]
 z_index = 1
-position = Vector2(-1360, 73)
+position = Vector2(-1360, 82)
 shape = SubResource("WorldBoundaryShape2D_uaush")
 
 [node name="rightBorder" type="StaticBody2D" parent="." unique_id=1445592504]
@@ -722,9 +722,9 @@ metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="leftBorder" unique_id=822103694]
 z_index = 3
-position = Vector2(-2515.0005, 187)
+position = Vector2(-3390.0005, 187)
 rotation = -1.5707964
-scale = Vector2(0.99999964, 0.99999964)
+scale = Vector2(0.9999995, 0.9999995)
 shape = SubResource("RectangleShape2D_uaush")
 
 [node name="CustomPlayer" type="CharacterBody2D" parent="." unique_id=1560269461]
