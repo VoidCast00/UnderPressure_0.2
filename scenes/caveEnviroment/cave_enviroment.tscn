@@ -645,6 +645,7 @@ initial_velocity_max = 50.0
 
 [node name="Cave" type="TileMapLayer" parent="Static" unique_id=1651881328]
 texture_filter = 1
+tile_map_data = PackedByteArray("AAD8/wEAAAAEAAAAAAD8/wIAAAACAAEAAAD8/wMAAAACAAIAAAD9/wEAAAACAAMAAAD7/wIAAAABAAQAAAD6/wEAAAAAAAAAAAD7/wEAAAABAAAAAAD7/wMAAAAAAAIAAAD6/wIAAAAAAAIAAAA=")
 tile_set = SubResource("TileSet_vsfrg")
 
 [node name="BlockBreak" type="AudioStreamPlayer" parent="Static/Cave" unique_id=420296650]
