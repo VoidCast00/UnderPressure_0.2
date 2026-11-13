@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://1wechmmab5c1"
-path="res://.godot/imported/Minerals.png-f21f433de21db3d5182b1e76e3db816d.ctex"
+uid="uid://bvp36ag63akha"
+path="res://.godot/imported/Anchor.png-e5523d4536f722fff7a4b599bfa0e037.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/caveGenerator/Minerals.png"
-dest_files=["res://.godot/imported/Minerals.png-f21f433de21db3d5182b1e76e3db816d.ctex"]
+source_file="res://assets/places/Anchor.png"
+dest_files=["res://.godot/imported/Anchor.png-e5523d4536f722fff7a4b599bfa0e037.ctex"]
 
 [params]
 

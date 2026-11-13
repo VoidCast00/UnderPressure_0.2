@@ -1,19 +1,26 @@
-[gd_scene format=4 uid="uid://ba7vddmnq4tp"]
+[gd_scene format=3 uid="uid://ba7vddmnq4tp"]
 
 [ext_resource type="PackedScene" uid="uid://dcbh3t1vcddv8" path="res://scenes/player/player.tscn" id="1_ibr66"]
 [ext_resource type="Script" uid="uid://dya6n0ugxdo3n" path="res://scenes/caveEnviroment/subpixelCamera.gd" id="2_iqo5d"]
 [ext_resource type="Script" uid="uid://dpvdyqogqjqu8" path="res://scenes/caveGenerator/caveManager.gd" id="3_g0opn"]
 [ext_resource type="Shader" uid="uid://bximonf5agbam" path="res://scenes/caveEnviroment/cave_background_perlin.gdshader" id="4_g0opn"]
 [ext_resource type="AudioStream" uid="uid://xak3e440bhdx" path="res://assets/audio/sfx/player/breaking bloks.mp3" id="5_b6bav"]
+[ext_resource type="Texture2D" uid="uid://y5xlodybp4wq" path="res://scenes/caveGenerator/Iron.png" id="5_dlsyl"]
 [ext_resource type="Script" uid="uid://ccus05sctsxmx" path="res://scenes/caveEnviroment/perlin_backround.gd" id="5_hyba4"]
+[ext_resource type="Script" uid="uid://cy2uceyx502qo" path="res://scenes/caveEnviroment/mining_blocks_manager.gd" id="5_oupmn"]
+[ext_resource type="Texture2D" uid="uid://du22iut02yode" path="res://scenes/caveGenerator/Amethist.png" id="7_epwr5"]
 [ext_resource type="Script" uid="uid://bokuosutvx4fr" path="res://scenes/caveEnviroment/transportUp.gd" id="7_k1atb"]
 [ext_resource type="AudioStream" uid="uid://wkufmiejh0rr" path="res://assets/audio/sfx/player/rubyDestroy.mp3" id="7_ti1pm"]
 [ext_resource type="AudioStream" uid="uid://b2sufp58s406l" path="res://assets/audio/sfx/player/oreDestroy.mp3" id="7_w32iq"]
 [ext_resource type="AudioStream" uid="uid://d07k5xvn4spqc" path="res://assets/audio/sfx/player/ametistDestroy.mp3" id="8_4h610"]
+[ext_resource type="Texture2D" uid="uid://cgfu70u4pxuky" path="res://scenes/caveGenerator/Ruby.png" id="8_oupmn"]
 [ext_resource type="Script" uid="uid://c4gisitxcsjxa" path="res://scenes/caveEnviroment/background_music_manager.gd" id="9_53e16"]
 [ext_resource type="Texture2D" uid="uid://gdoku45w78rt" path="res://scenes/caveGenerator/CaveTilemap.png" id="9_w32iq"]
 [ext_resource type="AudioStream" uid="uid://b47ert4sspfga" path="res://assets/audio/music/caveSoundtrack.mp3" id="9_yf8om"]
+[ext_resource type="Texture2D" uid="uid://1wechmmab5c1" path="res://scenes/caveGenerator/Gold.png" id="10_8eqaq"]
 [ext_resource type="AudioStream" uid="uid://0i1gv5oi48j2" path="res://assets/audio/sfx/ambience/CaveAmbience.mp3" id="10_iqo5d"]
+[ext_resource type="Shader" uid="uid://6doqwo8c05l3" path="res://scenes/caveEnviroment/AnorchTransparency.gdshader" id="12_lob5d"]
+[ext_resource type="Texture2D" uid="uid://bvp36ag63akha" path="res://assets/places/Anchor.png" id="13_r1ge6"]
 [ext_resource type="AudioStream" uid="uid://0sye1sxv3rja" path="res://assets/audio/sfx/player/breathing.mp3" id="15_4h610"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3aygq"]
@@ -24,6 +31,148 @@ shader_parameter/parallax = 0.5
 shader_parameter/color_a = Color(0.017000003, 0.041899998, 0.1, 1)
 shader_parameter/color_b = Color(0.06, 0.25, 0.4, 1)
 shader_parameter/camera_pos = Vector2(0, 0)
+
+[sub_resource type="Gradient" id="Gradient_kjrfb"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.5)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_0rn35"]
+frequency = 0.0484
+fractal_octaves = 8
+cellular_distance_function = 2
+domain_warp_enabled = true
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_yf8om"]
+noise = SubResource("FastNoiseLite_0rn35")
+color_ramp = SubResource("Gradient_kjrfb")
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4r73f"]
+texture = ExtResource("5_dlsyl")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+6:0/0 = 0
+7:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+5:1/0 = 0
+6:1/0 = 0
+7:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+4:2/0 = 0
+5:2/0 = 0
+6:2/0 = 0
+7:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+4:3/0 = 0
+5:3/0 = 0
+6:3/0 = 0
+7:3/0 = 0
+0:4/0 = 0
+1:4/0 = 0
+2:4/0 = 0
+3:4/0 = 0
+4:4/0 = 0
+5:4/0 = 0
+6:4/0 = 0
+7:4/0 = 0
+0:5/0 = 0
+1:5/0 = 0
+2:5/0 = 0
+3:5/0 = 0
+4:5/0 = 0
+5:5/0 = 0
+6:5/0 = 0
+7:5/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dlsyl"]
+texture = ExtResource("10_8eqaq")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+6:0/0 = 0
+7:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+5:1/0 = 0
+6:1/0 = 0
+7:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+4:2/0 = 0
+5:2/0 = 0
+6:2/0 = 0
+7:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+4:3/0 = 0
+5:3/0 = 0
+6:3/0 = 0
+7:3/0 = 0
+0:4/0 = 0
+1:4/0 = 0
+2:4/0 = 0
+3:4/0 = 0
+4:4/0 = 0
+5:4/0 = 0
+6:4/0 = 0
+0:5/0 = 0
+1:5/0 = 0
+2:5/0 = 0
+3:5/0 = 0
+4:5/0 = 0
+5:5/0 = 0
+6:5/0 = 0
+7:5/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xhftc"]
+texture = ExtResource("7_epwr5")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+1:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tqpg4"]
+texture = ExtResource("8_oupmn")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+1:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_pd0ml"]
+tile_size = Vector2i(32, 32)
+custom_data_layer_0/name = "Material"
+custom_data_layer_0/type = 4
+sources/1 = SubResource("TileSetAtlasSource_dlsyl")
+sources/0 = SubResource("TileSetAtlasSource_4r73f")
+sources/2 = SubResource("TileSetAtlasSource_xhftc")
+sources/3 = SubResource("TileSetAtlasSource_tqpg4")
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_53e16"]
 polygon = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
@@ -423,168 +572,13 @@ terrain_set_0/terrain_0/name = "CaveWall"
 terrain_set_0/terrain_0/color = Color(0.010794957, 0.004454754, 0.267876, 1)
 sources/0 = SubResource("TileSetAtlasSource_em1bs")
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_yf8om"]
-texture = ExtResource("9_w32iq")
-texture_region_size = Vector2i(32, 32)
-0:6/0 = 0
-0:6/0/custom_data_0 = "gold"
-1:6/0 = 0
-1:6/0/custom_data_0 = "gold"
-2:6/0 = 0
-2:6/0/custom_data_0 = "gold"
-3:6/0 = 0
-3:6/0/custom_data_0 = "gold"
-4:6/0 = 0
-4:6/0/custom_data_0 = "gold"
-5:6/0 = 0
-5:6/0/custom_data_0 = "gold"
-6:6/0 = 0
-6:6/0/custom_data_0 = "gold"
-7:6/0 = 0
-7:6/0/custom_data_0 = "gold"
-0:7/0 = 0
-0:7/0/custom_data_0 = "gold"
-1:7/0 = 0
-1:7/0/custom_data_0 = "gold"
-2:7/0 = 0
-2:7/0/custom_data_0 = "gold"
-3:7/0 = 0
-3:7/0/custom_data_0 = "gold"
-4:7/0 = 0
-4:7/0/custom_data_0 = "gold"
-5:7/0 = 0
-5:7/0/custom_data_0 = "gold"
-6:7/0 = 0
-6:7/0/custom_data_0 = "gold"
-7:7/0 = 0
-7:7/0/custom_data_0 = "gold"
-0:8/0 = 0
-0:8/0/custom_data_0 = "gold"
-1:8/0 = 0
-1:8/0/custom_data_0 = "gold"
-2:8/0 = 0
-2:8/0/custom_data_0 = "gold"
-3:8/0 = 0
-3:8/0/custom_data_0 = "gold"
-4:8/0 = 0
-4:8/0/custom_data_0 = "gold"
-5:8/0 = 0
-5:8/0/custom_data_0 = "gold"
-6:8/0 = 0
-6:8/0/custom_data_0 = "gold"
-7:8/0 = 0
-7:8/0/custom_data_0 = "gold"
-0:9/0 = 0
-0:9/0/custom_data_0 = "gold"
-1:9/0 = 0
-1:9/0/custom_data_0 = "gold"
-2:9/0 = 0
-2:9/0/custom_data_0 = "gold"
-3:9/0 = 0
-3:9/0/custom_data_0 = "gold"
-4:9/0 = 0
-4:9/0/custom_data_0 = "gold"
-5:9/0 = 0
-5:9/0/custom_data_0 = "gold"
-6:9/0 = 0
-6:9/0/custom_data_0 = "gold"
-7:9/0 = 0
-7:9/0/custom_data_0 = "gold"
-0:10/0 = 0
-0:10/0/custom_data_0 = "gold"
-1:10/0 = 0
-1:10/0/custom_data_0 = "gold"
-2:10/0 = 0
-2:10/0/custom_data_0 = "gold"
-3:10/0 = 0
-4:10/0 = 0
-4:10/0/custom_data_0 = "gold"
-5:10/0 = 0
-5:10/0/custom_data_0 = "gold"
-6:10/0 = 0
-6:10/0/custom_data_0 = "gold"
-7:10/0 = 0
-0:11/0 = 0
-0:11/0/custom_data_0 = "gold"
-1:11/0 = 0
-1:11/0/custom_data_0 = "gold"
-2:11/0 = 0
-2:11/0/custom_data_0 = "gold"
-3:11/0 = 0
-3:11/0/custom_data_0 = "gold"
-4:11/0 = 0
-4:11/0/custom_data_0 = "gold"
-5:11/0 = 0
-5:11/0/custom_data_0 = "gold"
-6:11/0 = 0
-6:11/0/custom_data_0 = "gold"
-7:11/0 = 0
-7:11/0/custom_data_0 = "gold"
-0:12/0 = 0
-0:12/0/custom_data_0 = "amethyst"
-1:12/0 = 0
-1:12/0/custom_data_0 = "amethyst"
-2:12/0 = 0
-2:12/0/custom_data_0 = "ruby"
-3:12/0 = 0
-3:12/0/custom_data_0 = "ruby"
-0:13/0 = 0
-0:13/0/custom_data_0 = "amethyst"
-1:13/0 = 0
-1:13/0/custom_data_0 = "amethyst"
-2:13/0 = 0
-2:13/0/custom_data_0 = "ruby"
-3:13/0 = 0
-3:13/0/custom_data_0 = "ruby"
-
-[sub_resource type="TileSet" id="TileSet_pd0ml"]
-tile_size = Vector2i(32, 32)
-custom_data_layer_0/name = "Material"
-custom_data_layer_0/type = 4
-sources/0 = SubResource("TileSetAtlasSource_yf8om")
-
-[sub_resource type="Gradient" id="Gradient_kjrfb"]
-interpolation_mode = 1
-offsets = PackedFloat32Array(0, 0.5)
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_0rn35"]
-frequency = 0.0242
-fractal_octaves = 8
-cellular_distance_function = 2
-domain_warp_enabled = true
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_yf8om"]
-noise = SubResource("FastNoiseLite_0rn35")
-color_ramp = SubResource("Gradient_kjrfb")
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_w2j8n"]
-noise_type = 3
-frequency = 0.0266
-fractal_type = 2
-fractal_octaves = 9
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_u0fae"]
-noise = SubResource("FastNoiseLite_w2j8n")
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_6kpao"]
-frequency = 0.105
-fractal_octaves = 7
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_30230"]
-noise = SubResource("FastNoiseLite_6kpao")
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_pd0ml"]
 radius = 28.071337
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ti1pm"]
-texture = ExtResource("9_w32iq")
-texture_region_size = Vector2i(32, 32)
-7:14/0 = 0
-7:15/0 = 0
-
-[sub_resource type="TileSet" id="TileSet_x8mcd"]
-tile_size = Vector2i(32, 32)
-sources/0 = SubResource("TileSetAtlasSource_ti1pm")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pd0ml"]
+shader = ExtResource("12_lob5d")
+shader_parameter/fade_start = 1.0
+shader_parameter/fade_end = 0.0
 
 [node name="CaveEnviroment" type="Node2D" unique_id=647867534]
 
@@ -612,12 +606,52 @@ script = ExtResource("5_hyba4")
 [node name="CanvasModulate" type="CanvasModulate" parent="Entities/Camera2D" unique_id=663374839]
 color = Color(0, 0, 0, 1)
 
-[node name="Player" parent="Entities" unique_id=698144906 node_paths=PackedStringArray("cave_tilemap", "world_generator") instance=ExtResource("1_ibr66")]
+[node name="Player" parent="Entities" unique_id=698144906 node_paths=PackedStringArray("cave_tilemap", "mining_manager") instance=ExtResource("1_ibr66")]
 position = Vector2(-126, -2)
-cave_tilemap = NodePath("../../Static/Cave")
-world_generator = NodePath("../../Static/WorldGenerator")
+cave_tilemap = NodePath("../../Static/TileMaps/Cave")
+mining_manager = NodePath("../../Static/MiningBlocksManager")
 
 [node name="Static" type="Node2D" parent="." unique_id=961585314]
+
+[node name="MiningBlocksManager" type="Node" parent="Static" unique_id=1494255721 node_paths=PackedStringArray("cave", "block_break", "gold_break", "amethist_break", "ruby_break", "cpu_particles_2d", "after_break_par")]
+script = ExtResource("5_oupmn")
+cave = NodePath("../WorldGenerator")
+block_break = NodePath("../TileMaps/Cave/BlockBreak")
+gold_break = NodePath("../TileMaps/Cave/goldBreak")
+amethist_break = NodePath("../TileMaps/Cave/amethistBreak")
+ruby_break = NodePath("../TileMaps/Cave/rubyBreak")
+cpu_particles_2d = NodePath("../BreakingPar")
+after_break_par = NodePath("../AfterBreakPar")
+
+[node name="WorldGenerator" type="Node" parent="Static" unique_id=85954663 node_paths=PackedStringArray("caveTilemap", "oreTilemap", "transport")]
+script = ExtResource("3_g0opn")
+caveNoise = SubResource("NoiseTexture2D_yf8om")
+caveTilemap = NodePath("../TileMaps/Cave")
+oreTilemap = NodePath("../TileMaps/OreTileMap")
+transport = NodePath("../TransportUp")
+
+[node name="TileMaps" type="Node2D" parent="Static" unique_id=1852857242]
+
+[node name="OreTileMap" type="TileMapLayer" parent="Static/TileMaps" unique_id=46205129]
+z_index = 1
+texture_filter = 1
+tile_set = SubResource("TileSet_pd0ml")
+
+[node name="Cave" type="TileMapLayer" parent="Static/TileMaps" unique_id=1651881328]
+texture_filter = 1
+tile_set = SubResource("TileSet_vsfrg")
+
+[node name="BlockBreak" type="AudioStreamPlayer" parent="Static/TileMaps/Cave" unique_id=420296650]
+stream = ExtResource("5_b6bav")
+
+[node name="goldBreak" type="AudioStreamPlayer" parent="Static/TileMaps/Cave" unique_id=1785020823]
+stream = ExtResource("7_w32iq")
+
+[node name="rubyBreak" type="AudioStreamPlayer" parent="Static/TileMaps/Cave" unique_id=584106232]
+stream = ExtResource("7_ti1pm")
+
+[node name="amethistBreak" type="AudioStreamPlayer" parent="Static/TileMaps/Cave" unique_id=1844322425]
+stream = ExtResource("8_4h610")
 
 [node name="BreakingPar" type="CPUParticles2D" parent="Static" unique_id=674174720]
 modulate = Color(0.23537052, 0.23537052, 0.23537052, 1)
@@ -643,38 +677,6 @@ gravity = Vector2(0, 0)
 initial_velocity_min = 20.0
 initial_velocity_max = 50.0
 
-[node name="Cave" type="TileMapLayer" parent="Static" unique_id=1651881328]
-texture_filter = 1
-tile_map_data = PackedByteArray("AAD8/wEAAAAEAAAAAAD8/wIAAAACAAEAAAD8/wMAAAACAAIAAAD9/wEAAAACAAMAAAD7/wIAAAABAAQAAAD6/wEAAAAAAAAAAAD7/wEAAAABAAAAAAD7/wMAAAAAAAIAAAD6/wIAAAAAAAIAAAA=")
-tile_set = SubResource("TileSet_vsfrg")
-
-[node name="BlockBreak" type="AudioStreamPlayer" parent="Static/Cave" unique_id=420296650]
-stream = ExtResource("5_b6bav")
-
-[node name="goldBreak" type="AudioStreamPlayer" parent="Static/Cave" unique_id=1785020823]
-stream = ExtResource("7_w32iq")
-
-[node name="rubyBreak" type="AudioStreamPlayer" parent="Static/Cave" unique_id=584106232]
-stream = ExtResource("7_ti1pm")
-
-[node name="amethistBreak" type="AudioStreamPlayer" parent="Static/Cave" unique_id=1844322425]
-stream = ExtResource("8_4h610")
-
-[node name="OresTilemap" type="TileMapLayer" parent="Static" unique_id=46205129]
-texture_filter = 1
-tile_set = SubResource("TileSet_pd0ml")
-
-[node name="WorldGenerator" type="Node" parent="Static" unique_id=85954663 node_paths=PackedStringArray("caveTilemap", "oreTilemap", "transport", "cpu_particles_2d", "after_break_par")]
-script = ExtResource("3_g0opn")
-caveNoise = SubResource("NoiseTexture2D_yf8om")
-crystalNoise = SubResource("NoiseTexture2D_u0fae")
-goldNoise = SubResource("NoiseTexture2D_30230")
-caveTilemap = NodePath("../Cave")
-oreTilemap = NodePath("../OresTilemap")
-transport = NodePath("../TransportUp")
-cpu_particles_2d = NodePath("../BreakingPar")
-after_break_par = NodePath("../AfterBreakPar")
-
 [node name="TransportUp" type="StaticBody2D" parent="Static" unique_id=1637920218 node_paths=PackedStringArray("press_e")]
 collision_layer = 0
 script = ExtResource("7_k1atb")
@@ -690,19 +692,18 @@ collision_layer = 0
 position = Vector2(18, 17)
 shape = SubResource("CircleShape2D_pd0ml")
 
-[node name="Anchor" type="TileMapLayer" parent="Static/TransportUp" unique_id=590528014]
-z_index = 1
-tile_map_data = PackedByteArray("AAAAAAAAAAAHAA8AAAAAAP//AAAHAA4AAAAAAP7/AAAHAA4AAAAAAP3/AAAHAA4AAAAAAPz/AAAHAA4AAAAAAPv/AAAHAA4AAAAAAPr/AAAHAA4AAAAAAPn/AAAHAA4AAAAAAMf/AAAHAA4AAAAAAMj/AAAHAA4AAAAAAMn/AAAHAA4AAAAAAMr/AAAHAA4AAAAAAMv/AAAHAA4AAAAAAMz/AAAHAA4AAAAAAM3/AAAHAA4AAAAAAM7/AAAHAA4AAAAAAM//AAAHAA4AAAAAAND/AAAHAA4AAAAAANH/AAAHAA4AAAAAANL/AAAHAA4AAAAAANP/AAAHAA4AAAAAANT/AAAHAA4AAAAAANX/AAAHAA4AAAAAANb/AAAHAA4AAAAAANf/AAAHAA4AAAAAANj/AAAHAA4AAAAAANn/AAAHAA4AAAAAANr/AAAHAA4AAAAAANv/AAAHAA4AAAAAANz/AAAHAA4AAAAAAN3/AAAHAA4AAAAAAN7/AAAHAA4AAAAAAN//AAAHAA4AAAAAAOD/AAAHAA4AAAAAAOH/AAAHAA4AAAAAAOL/AAAHAA4AAAAAAOP/AAAHAA4AAAAAAOT/AAAHAA4AAAAAAOX/AAAHAA4AAAAAAOb/AAAHAA4AAAAAAOf/AAAHAA4AAAAAAOj/AAAHAA4AAAAAAOn/AAAHAA4AAAAAAOr/AAAHAA4AAAAAAOv/AAAHAA4AAAAAAOz/AAAHAA4AAAAAAO3/AAAHAA4AAAAAAO7/AAAHAA4AAAAAAO//AAAHAA4AAAAAAPD/AAAHAA4AAAAAAPH/AAAHAA4AAAAAAPL/AAAHAA4AAAAAAPP/AAAHAA4AAAAAAPT/AAAHAA4AAAAAAPX/AAAHAA4AAAAAAPb/AAAHAA4AAAAAAPf/AAAHAA4AAAAAAPj/AAAHAA4AAAAAAJ//AAAHAA4AAAAAAKD/AAAHAA4AAAAAAKH/AAAHAA4AAAAAAKL/AAAHAA4AAAAAAKP/AAAHAA4AAAAAAKT/AAAHAA4AAAAAAKX/AAAHAA4AAAAAAKb/AAAHAA4AAAAAAKf/AAAHAA4AAAAAAKj/AAAHAA4AAAAAAKn/AAAHAA4AAAAAAKr/AAAHAA4AAAAAAKv/AAAHAA4AAAAAAKz/AAAHAA4AAAAAAK3/AAAHAA4AAAAAAK7/AAAHAA4AAAAAAK//AAAHAA4AAAAAALD/AAAHAA4AAAAAALH/AAAHAA4AAAAAALL/AAAHAA4AAAAAALP/AAAHAA4AAAAAALT/AAAHAA4AAAAAALX/AAAHAA4AAAAAALb/AAAHAA4AAAAAALf/AAAHAA4AAAAAALj/AAAHAA4AAAAAALn/AAAHAA4AAAAAALr/AAAHAA4AAAAAALv/AAAHAA4AAAAAALz/AAAHAA4AAAAAAL3/AAAHAA4AAAAAAL7/AAAHAA4AAAAAAL//AAAHAA4AAAAAAMD/AAAHAA4AAAAAAMH/AAAHAA4AAAAAAML/AAAHAA4AAAAAAMP/AAAHAA4AAAAAAMT/AAAHAA4AAAAAAMX/AAAHAA4AAAAAAMb/AAAHAA4AAAAAAJH/AAAHAA4AAAAAAJL/AAAHAA4AAAAAAJP/AAAHAA4AAAAAAJT/AAAHAA4AAAAAAJX/AAAHAA4AAAAAAJb/AAAHAA4AAAAAAJf/AAAHAA4AAAAAAJj/AAAHAA4AAAAAAJn/AAAHAA4AAAAAAJr/AAAHAA4AAAAAAJv/AAAHAA4AAAAAAJz/AAAHAA4AAAAAAJ3/AAAHAA4AAAAAAJ7/AAAHAA4AAAA=")
-tile_set = SubResource("TileSet_x8mcd")
-
 [node name="Press_E" type="Label" parent="Static/TransportUp" unique_id=894248459]
-visible = false
 z_index = 10
 offset_top = -5.0
 offset_right = 111.0
 offset_bottom = 37.0
 theme_override_font_sizes/font_size = 10
 text = "press: E"
+
+[node name="Anchor" type="Sprite2D" parent="Static/TransportUp" unique_id=1391071265]
+material = SubResource("ShaderMaterial_pd0ml")
+position = Vector2(16, -191)
+texture = ExtResource("13_r1ge6")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1700140599]
 layer = -1

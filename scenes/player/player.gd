@@ -20,7 +20,7 @@ var mining_state_last_frame:bool = false
 @onready var shooting_point: Marker2D = $ShootingPoint
 @onready var laser: Line2D = $Laser
 @onready var ray_cast: RayCast2D = $RayCast2D
-@export var world_generator: Node 
+@export var mining_manager: MiningBlocksManager
 @onready var LaserSound: AudioStreamPlayer = $LaserSound
 
 @onready var cpu_particles_2d: CPUParticles2D = $CPUParticles2D
@@ -75,7 +75,7 @@ func mine(_delta: float) -> void:
 			is_lasering = false
 			laser.hide()
 			LaserSound.stop()
-			world_generator.stopMining()
+			mining_manager.stopMining()
 		return
 
 	#laser
@@ -86,7 +86,7 @@ func mine(_delta: float) -> void:
 
 	#step a bit inside the wall so we get the hit cell
 	var inside: Vector2 = hit - ray_cast.get_collision_normal() * 2.0
-	world_generator.startMining(inside)
+	mining_manager.startMining(hit - ray_cast.get_collision_normal() )
 
 
 #returns hit point on the cave, or null
