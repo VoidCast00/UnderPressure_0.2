@@ -13,10 +13,6 @@ extends Node
 @export var death: Control
 
 
-
-
-
-
 #current environment
 var current_env: Node = null
 var is_loading := false
@@ -25,6 +21,7 @@ func _ready() -> void:
 	Inventory.oxygenDepleted.connect(killPLayer)
 	pause.resume.connect(switchPause)
 	Global.shop_ui = %ShopUI
+	Global.quota_ui = %Qouta
 	Global.loading_text = %LoadingText
 	Global.oxygen_gauge = oxygen_gauge
 	Global.loadWaterEnviroment.connect(loadWaterEnviroment)
@@ -37,20 +34,24 @@ func loadWaterEnviroment() -> void:
 	oxygen_gauge.show()
 	
 	var daysLeft = (Global.deadline - Global.day) 
-	if (daysLeft == 0 and Inventory.cash - Global.quota < 0):
-			lost_quota.show()
-			var sound : AudioStreamPlayer = main_menu.main_menu_soundtrack
-			sound.play()
-			sound.pitch_scale = 0.8	
-			unload()
-	
+	if (daysLeft == 0 or Global.quotaCompletedAmount >= Global.quota):
+			if Global.quotaCompletedAmount >= Global.quota:
+				Global.quota *= 2
+				Global.deadline = 3
+				Global.quotaCompletedAmount = 0
+				var text = "Loading..."
+				Global.loading_text.get_children()[1].text = text
+				Global.loading_text.get_children()[2].text = "Quota: " + str(Global.quota)
+				Global.loading_text.show()
+				load_env(WaterEnviroment)
+			else:
+				lost_quota.show()
+				var sound : AudioStreamPlayer = main_menu.main_menu_soundtrack
+				sound.play()
+				sound.pitch_scale = 0.8
+				unload()
 	else:
-		if (daysLeft == 0):
-			Inventory.cash -= Global.quota
-			Global.quota *= 2
-			Global.deadline += 3
-		else:
-			Global.day += 1
+		Global.day += 1
 		load_env(WaterEnviroment)
 		
 

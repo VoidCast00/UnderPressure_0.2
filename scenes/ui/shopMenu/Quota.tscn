@@ -1,8 +1,9 @@
 [gd_scene format=3 uid="uid://dm3smp37mlq81"]
 
 [ext_resource type="Script" uid="uid://biicdacx6ovr1" path="res://scenes/ui/shopMenu/quota.gd" id="1_w1oiu"]
+[ext_resource type="Script" uid="uid://cpe2ml4pgkvvj" path="res://scenes/AnimatedButton/animated_button.gd" id="2_yw63d"]
 
-[node name="Control" type="Control" unique_id=95708323]
+[node name="Quota" type="Control" unique_id=95708323 node_paths=PackedStringArray("label")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -10,22 +11,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_w1oiu")
-
-[node name="Button" type="Button" parent="." unique_id=103719504]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -226.0
-offset_top = -180.0
-offset_right = 230.0
-offset_bottom = -43.0
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_font_sizes/font_size = 100
-text = "Pay"
+label = NodePath("Label")
 
 [node name="Label" type="Label" parent="." unique_id=1720607076]
 layout_mode = 1
@@ -42,3 +28,33 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 100
 text = "Quota:"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1476155649]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 821.0
+offset_right = 1918.0
+offset_bottom = 1012.0
+theme_override_constants/separation = 40
+alignment = 1
+
+[node name="Max" type="Button" parent="HBoxContainer" unique_id=692426373]
+layout_mode = 2
+theme_override_font_sizes/font_size = 100
+text = "Pay Max"
+script = ExtResource("2_yw63d")
+metadata/_custom_type_script = "uid://cpe2ml4pgkvvj"
+
+[node name="100" type="Button" parent="HBoxContainer" unique_id=289419864]
+layout_mode = 2
+theme_override_font_sizes/font_size = 100
+text = "Pay: 100"
+script = ExtResource("2_yw63d")
+metadata/_custom_type_script = "uid://cpe2ml4pgkvvj"
+
+[node name="50" type="Button" parent="HBoxContainer" unique_id=1809330117]
+layout_mode = 2
+theme_override_font_sizes/font_size = 100
+text = "Pay:50"
+script = ExtResource("2_yw63d")
+metadata/_custom_type_script = "uid://cpe2ml4pgkvvj"
