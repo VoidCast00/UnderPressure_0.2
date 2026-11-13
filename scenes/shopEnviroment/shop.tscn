@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://cckfxheyp43mm" path="res://assets/surface/Shop_Display_SpriteSheet.png" id="6_uydx1"]
 [ext_resource type="AudioStream" uid="uid://c3dhqtrcibjit" path="res://assets/audio/sfx/ambience/beachambience.mp3" id="8_5pml0"]
 [ext_resource type="Texture2D" uid="uid://dbmst3jt4yf6m" path="res://assets/surface/QuotaMachine_Spritesheet.png" id="12_vffn7"]
+[ext_resource type="Script" uid="uid://cgviesvg0bj7g" path="res://scenes/shopEnviroment/quota.gd" id="12_vrkee"]
 [ext_resource type="Script" uid="uid://bthh6tmfqik0e" path="res://scenes/shopEnviroment/weather_manager.gd" id="13_rve61"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_uaush"]
@@ -358,7 +359,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c18aq"]
-size = Vector2(512, 318.34937)
+size = Vector2(434, 318.34937)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3aygq"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -654,6 +655,9 @@ animations = [{
 "speed": 6.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8iceo"]
+size = Vector2(203.5, 307)
+
 [node name="Shop" type="Node2D" unique_id=2046859950]
 texture_filter = 1
 position = Vector2(0, -1)
@@ -771,7 +775,7 @@ scale = Vector2(1, 1.357)
 collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Shop/EnterBox" unique_id=1439994587]
-position = Vector2(355, 73.69198)
+position = Vector2(268, 73.691956)
 shape = SubResource("RectangleShape2D_c18aq")
 
 [node name="EasterEgg" type="Button" parent="Shop" unique_id=1493500711]
@@ -830,8 +834,10 @@ mix_target = 1
 
 [node name="Music" type="AudioStreamPlayer" parent="weatherManager" unique_id=542655789]
 
-[node name="Quota" type="Node2D" parent="." unique_id=2089188762]
+[node name="Quota" type="Node2D" parent="." unique_id=2089188762 node_paths=PackedStringArray("press_e")]
 position = Vector2(0, 1)
+script = ExtResource("12_vrkee")
+press_e = NodePath("press E")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Quota" unique_id=1612198589]
 position = Vector2(1854.9999, 540)
@@ -841,8 +847,25 @@ animation = &"idle"
 autoplay = "idle"
 frame_progress = 0.5774191
 
+[node name="Area2D" type="Area2D" parent="Quota" unique_id=1906207218]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Quota/Area2D" unique_id=884301971]
+position = Vector2(1859, 594)
+shape = SubResource("RectangleShape2D_8iceo")
+
+[node name="press E" type="Label" parent="Quota" unique_id=1835187936]
+visible = false
+offset_left = 1801.0
+offset_top = 444.0
+offset_right = 1912.0
+offset_bottom = 486.0
+theme_override_font_sizes/font_size = 30
+text = "press: E"
+
 [connection signal="body_entered" from="Shop/EnterBox" to="Shop" method="_on_enter_box_body_entered"]
 [connection signal="body_exited" from="Shop/EnterBox" to="Shop" method="_on_enter_box_body_exited"]
 [connection signal="pressed" from="Shop/EasterEgg" to="Shop" method="_on_easter_egg_pressed"]
 [connection signal="body_entered" from="Transport/EnterArea" to="Transport" method="_on_enter_area_body_entered"]
 [connection signal="body_exited" from="Transport/EnterArea" to="Transport" method="_on_enter_area_body_exited"]
+[connection signal="body_entered" from="Quota/Area2D" to="Quota" method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Quota/Area2D" to="Quota" method="_on_area_2d_body_exited"]

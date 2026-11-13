@@ -3,7 +3,8 @@ extends Control
 @export var start: AnimatedButton
 @export var options: AnimatedButton
 @export var exit: AnimatedButton
-
+@export var label_2: Label
+ 
 @export var tutorial: Control
 var waitingForTutorial := false
 
@@ -21,8 +22,9 @@ func _on_start_pressed() -> void:
 	tutorial.show()
 	start.disabled = true  # stops double clicks
 	await get_tree().create_timer(2.0).timeout
+	label_2.visible = true
 	waitingForTutorial = true  # now any key or click closes it
-
+	
 
 func _input(event: InputEvent) -> void:
 	if not waitingForTutorial:
