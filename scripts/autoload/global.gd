@@ -13,6 +13,7 @@ const SELL_PRICES := {
 	"amethyst": 6,
 	"gold": 10,
 	"ruby": 16,
+	"osmium":30
 }
 
 
