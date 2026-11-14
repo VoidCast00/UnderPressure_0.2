@@ -6,6 +6,10 @@ extends Node
 
 #=== settings ==================================================================
 
+@export var round_top_y := -100      # fully round above this
+@export var rigid_bottom_y := 60     # fully rigid below this
+
+
 const HALF_SIZE := 100  #map is 200x200
 const NONE := Vector2i(-1, -1)  #"no tile"
 
@@ -27,7 +31,7 @@ const CRYSTALS := ["amethyst", "ruby"]
 #  frequency: higher = smaller, more scattered patches
 #checked top to bottom and the first match wins, so rare ores go first
 const ORE_SPAWNS := [
-	{"ore": "ruby", "amount": 0.85, "frequency": 0.027},
+	{"ore": "ruby", "amount": 0.05, "frequency": 0.027},
 	{"ore": "amethyst", "amount": 0.8, "frequency": 0.027},
 	{"ore": "gold", "amount": 0.4, "frequency": 0.105},
 	{"ore": "iron", "amount": 0.3, "frequency": 0.08},\
@@ -171,17 +175,20 @@ func remove_cells(cells: Array[Vector2i]) -> void:
 		for x in range(-2, 3):
 			for y in range(-2, 3):
 				var c := cell + Vector2i(x, y)
-				if ores.has(c):
-					nearby[c] = true
-
+				if not ores.has(c):
+					continue
+							# crystals: only the ones you actually mined
+				if ores[c] in CRYSTALS and not c in cells:
+					continue
+				nearby[c] = true
 	for c in nearby:
 		_update_ore(c)
-
 
 #draws the ore on this cell, or removes it if it cant be there anymore
 func _update_ore(cell: Vector2i) -> void:
 	var ore: String = ores[cell]
 	var tile := _ore_tile(cell, ore)
+	
 
 	if tile == NONE:
 		ores.erase(cell)
