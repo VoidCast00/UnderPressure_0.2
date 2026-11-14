@@ -9,9 +9,10 @@ extends Node
 const MINING_TIMES := {
 	"rock": 0.3,
 	"iron": 2.0,
-	"gold": 1.5,
+	"gold": 1.3,
 	"amethyst": 1.0,
 	"ruby": 1.8,
+	"osmium":1.8,
 }
 
 @export var cave: CaveManager

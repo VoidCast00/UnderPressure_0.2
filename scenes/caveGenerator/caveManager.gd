@@ -15,6 +15,7 @@ const ORE_SOURCES := {
 	"gold": 1,
 	"amethyst": 2,
 	"ruby": 3,
+	"osmium":4,
 }
 
 #crystals grow out of walls (2x2 png, one tile per direction)
@@ -29,7 +30,8 @@ const ORE_SPAWNS := [
 	{"ore": "ruby", "amount": 0.85, "frequency": 0.027},
 	{"ore": "amethyst", "amount": 0.8, "frequency": 0.027},
 	{"ore": "gold", "amount": 0.4, "frequency": 0.105},
-	{"ore": "iron", "amount": 0.3, "frequency": 0.08},
+	{"ore": "iron", "amount": 0.3, "frequency": 0.08},\
+	{"ore": "osmium", "amount": 0.3, "frequency": 0.08},
 ]
 
 #non-crystal ores only spawn this deep in the rock (caveNoise value, rock starts at 0)
