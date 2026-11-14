@@ -25,18 +25,21 @@ func _ready() -> void:
 	Global.quota_ui = %Qouta
 	Global.loading_text = %LoadingText
 	Global.oxygen_gauge = oxygen_gauge
+	Global.loadDepthUI.connect(loadDepthUi)
 	Global.loadWaterEnviroment.connect(loadWaterEnviroment)
 	Global.loadShopEnviroment.connect(loadShopEnviroment)
 	Global.exitGame.connect(exitGame)
 	
-func loadDepthUI():
-	depth.visible = true
-	
-	
+
+func loadDepthUi()-> void:
+	menu.hide()
+	depth.show()
 
 func loadWaterEnviroment() -> void:
 	menu.hide()
 	oxygen_gauge.show()
+	depth.hide()
+	%LoadingText.show()
 	
 	var daysLeft = (Global.deadline - Global.day) 
 	if (daysLeft == 0 or Global.quotaCompletedAmount >= Global.quota):

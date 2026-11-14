@@ -1,5 +1,6 @@
 extends Node
 
+signal loadDepthUI;  #shop transport -> pick depth -> then loadWaterEnviroment
 signal loadWaterEnviroment;
 signal loadShopEnviroment;
 signal exitGame;

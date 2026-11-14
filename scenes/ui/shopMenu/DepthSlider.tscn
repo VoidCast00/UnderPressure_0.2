@@ -5,6 +5,9 @@
 [ext_resource type="Texture2D" uid="uid://xycblr1ghfsg" path="res://assets/slider/imagfe.png" id="2_ijka8"]
 [ext_resource type="Texture2D" uid="uid://bhq27cqqjby3v" path="res://assets/slider/Anchor_Chain.png" id="3_ijka8"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3aygq"]
+bg_color = Color(0.15570343, 0.17016032, 0.278028, 1)
+
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_yfd8a"]
 texture = ExtResource("3_ijka8")
 expand_margin_left = 15.0
@@ -42,9 +45,16 @@ v_slider = NodePath("VSlider")
 label = NodePath("Label")
 animated_button = NodePath("AnimatedButton")
 
+[node name="Panel" type="Panel" parent="." unique_id=419693810]
+layout_mode = 0
+offset_right = 1926.0
+offset_bottom = 1087.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_3aygq")
+
 [node name="VSlider" type="VSlider" parent="." unique_id=1683154700]
 show_behind_parent = true
 clip_children = 2
+z_index = 1
 texture_repeat = 2
 layout_mode = 0
 offset_left = 3842.0
