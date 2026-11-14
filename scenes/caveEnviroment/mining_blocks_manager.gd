@@ -1,6 +1,7 @@
 class_name MiningBlocksManager
 extends Node
 
+
 #the player calls startMining() / stopMining()
 #this counts the mining time, then breaks the block and gives the ore
 
@@ -16,6 +17,8 @@ const MINING_TIMES := {
 @export var cave: CaveManager
 
 #break sounds (empty slot = no sound)
+
+
 @export var block_break: AudioStreamPlayer
 @export var iron_break: AudioStreamPlayer
 @export var gold_break: AudioStreamPlayer
@@ -49,8 +52,10 @@ func _process(delta: float) -> void:
 
 	#block is mined
 	Global.mined.emit(mining_type)
+	
 	var sound: AudioStreamPlayer = break_sounds.get(mining_type)
 	if sound:
+		sound.pitch_scale = randf_range(0.8,1.2)
 		sound.play()
 
 	cave.remove_cells([mining_cell])

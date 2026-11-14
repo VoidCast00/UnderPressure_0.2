@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://5e0cwdormxti"]
+
+[ext_resource type="Script" uid="uid://drjbrjdahy8eh" path="res://scenes/ui/shopMenu/depth_slider.gd" id="1_ghplu"]
+[ext_resource type="Script" uid="uid://cpe2ml4pgkvvj" path="res://scenes/AnimatedButton/animated_button.gd" id="2_62wl2"]
+
+[node name="Control" type="Control" unique_id=1389341063 node_paths=PackedStringArray("v_slider", "label", "animated_button")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ghplu")
+v_slider = NodePath("VSlider")
+label = NodePath("Label")
+animated_button = NodePath("AnimatedButton")
+
+[node name="VSlider" type="VSlider" parent="." unique_id=1683154700]
+clip_children = 2
+layout_mode = 0
+offset_left = 1922.0
+offset_top = 1007.0
+offset_right = 3846.0
+offset_bottom = 1935.0
+rotation = 3.1415927
+max_value = 1000.0
+
+[node name="AnimatedButton" type="Button" parent="." unique_id=1570785577]
+layout_mode = 0
+offset_left = 1429.0
+offset_top = 883.0
+offset_right = 1815.0
+offset_bottom = 1028.0
+theme_override_font_sizes/font_size = 100
+text = "Confirm"
+script = ExtResource("2_62wl2")
+metadata/_custom_type_script = "uid://cpe2ml4pgkvvj"
+
+[node name="Label" type="Label" parent="." unique_id=2059925679]
+layout_mode = 0
+offset_left = 1390.0
+offset_top = 587.0
+offset_right = 1859.0
+offset_bottom = 779.0
+theme_override_font_sizes/font_size = 60
+text = "Depth:"
+horizontal_alignment = 1
+vertical_alignment = 1

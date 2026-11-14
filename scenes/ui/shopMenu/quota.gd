@@ -19,6 +19,7 @@ func _process(delta: float) -> void:
 func maxButtonPressed():
 	if(Inventory.cash < Global.quota - Global.quotaCompletedAmount):
 		Global.quotaCompletedAmount += Inventory.cash
+		Inventory.cash = 0
 	else:
 		Inventory.cash = Inventory.cash - (Global.quota - Global.quotaCompletedAmount)
 		Global.quotaCompletedAmount = Global.quota

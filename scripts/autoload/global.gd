@@ -20,6 +20,7 @@ var quota:int = 190;
 var day:int =  0; #for the start to start counting
 var deadline:int = 3;  
 var quotaCompletedAmount:int = 0;
+var depthLevel := 0
 
 var tutorialDone := false
 

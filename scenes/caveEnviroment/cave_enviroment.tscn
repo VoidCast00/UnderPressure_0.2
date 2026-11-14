@@ -693,6 +693,7 @@ position = Vector2(18, 17)
 shape = SubResource("CircleShape2D_pd0ml")
 
 [node name="Press_E" type="Label" parent="Static/TransportUp" unique_id=894248459]
+visible = false
 z_index = 10
 offset_top = -5.0
 offset_right = 111.0

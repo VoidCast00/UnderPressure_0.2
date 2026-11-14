@@ -344,6 +344,7 @@ theme_override_font_sizes/font_size = 50
 text = "                   "
 
 [node name="Sell_All" type="Button" parent="Pages/Sell/HBoxContainer/PanelContainer/VBoxContainer" unique_id=368183300]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 4

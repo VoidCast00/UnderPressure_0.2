@@ -37,7 +37,8 @@ func loadWaterEnviroment() -> void:
 	if (daysLeft == 0 or Global.quotaCompletedAmount >= Global.quota):
 			if Global.quotaCompletedAmount >= Global.quota:
 				Global.quota *= 2
-				Global.deadline = 3
+				Global.deadline -= daysLeft
+				Global.deadline += 3
 				Global.quotaCompletedAmount = 0
 				var text = "Loading..."
 				Global.loading_text.get_children()[1].text = text
