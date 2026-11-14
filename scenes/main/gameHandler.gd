@@ -11,6 +11,7 @@ extends Node
 @export var lost_quota: Control
 @export var main_menu: Control
 @export var death: Control
+@export var depth: Control
 
 
 #current environment
@@ -27,6 +28,10 @@ func _ready() -> void:
 	Global.loadWaterEnviroment.connect(loadWaterEnviroment)
 	Global.loadShopEnviroment.connect(loadShopEnviroment)
 	Global.exitGame.connect(exitGame)
+	
+func loadDepthUI():
+	depth.visible = true
+	
 	
 
 func loadWaterEnviroment() -> void:
