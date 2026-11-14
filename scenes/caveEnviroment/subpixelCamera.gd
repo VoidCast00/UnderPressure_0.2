@@ -17,3 +17,4 @@ func _process(delta: float) -> void:
 	self.get_parent().get_parent().get_parent().get_parent().material.set_shader_parameter("cam_offset", camSubPixelOffset)
 	
 	global_position = actualCamPos.round()
+	
