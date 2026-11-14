@@ -666,13 +666,15 @@ mining_manager = NodePath("../../Static/MiningBlocksManager")
 
 [node name="Static" type="Node2D" parent="." unique_id=961585314]
 
-[node name="MiningBlocksManager" type="Node" parent="Static" unique_id=1494255721 node_paths=PackedStringArray("cave", "block_break", "gold_break", "amethist_break", "ruby_break", "cpu_particles_2d", "after_break_par")]
+[node name="MiningBlocksManager" type="Node" parent="Static" unique_id=1494255721 node_paths=PackedStringArray("cave", "block_break", "iron_break", "gold_break", "amethist_break", "ruby_break", "osmium_break", "cpu_particles_2d", "after_break_par")]
 script = ExtResource("5_oupmn")
 cave = NodePath("../WorldGenerator")
 block_break = NodePath("../TileMaps/Cave/BlockBreak")
+iron_break = NodePath("../TileMaps/Cave/BlockBreak")
 gold_break = NodePath("../TileMaps/Cave/goldBreak")
 amethist_break = NodePath("../TileMaps/Cave/amethistBreak")
 ruby_break = NodePath("../TileMaps/Cave/rubyBreak")
+osmium_break = NodePath("../TileMaps/Cave/rubyBreak")
 cpu_particles_2d = NodePath("../BreakingPar")
 after_break_par = NodePath("../AfterBreakPar")
 

@@ -197,6 +197,7 @@ script = SubResource("GDScript_em1bs")
 layer = 5
 
 [node name="Depth" parent="UI/Menu" unique_id=1389341063 instance=ExtResource("6_ktwa8")]
+visible = false
 
 [node name="MainMenu" parent="UI/Menu" unique_id=838703653 node_paths=PackedStringArray("label_2", "tutorial") instance=ExtResource("4_gf1f2")]
 label_2 = NodePath("../tutorial/Label2")

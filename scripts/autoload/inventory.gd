@@ -3,7 +3,7 @@ extends  Node
 signal changed(item: String, amount: int)
 signal oxygenDepleted
 
-var cash:int = 190:
+var cash:int = 0:
 	set(new_val):
 		cash = clamp(new_val, 0, INT64_MAX)
 		
