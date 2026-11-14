@@ -31,11 +31,11 @@ const CRYSTALS := ["amethyst", "ruby"]
 #  frequency: higher = smaller, more scattered patches
 #checked top to bottom and the first match wins, so rare ores go first
 const ORE_SPAWNS := [
-	{"ore": "ruby", "amount": 0.05, "frequency": 0.027},
-	{"ore": "amethyst", "amount": 0.8, "frequency": 0.027},
-	{"ore": "gold", "amount": 0.4, "frequency": 0.105},
-	{"ore": "iron", "amount": 0.3, "frequency": 0.08},\
-	{"ore": "osmium", "amount": 0.3, "frequency": 0.08},
+	{"ore": "osmium", "amount": 0.6, "frequency": 0.12},
+	{"ore": "ruby", "amount": 0.86, "frequency": 0.027},
+	{"ore": "amethyst", "amount": 0.83, "frequency": 0.027},
+	{"ore": "gold", "amount": 0.65, "frequency": 0.105},
+	{"ore": "iron", "amount": 0.40, "frequency": 0.08},
 ]
 
 #non-crystal ores only spawn this deep in the rock (caveNoise value, rock starts at 0)
@@ -103,6 +103,12 @@ func generateCaveSystem() -> void:
 		if ore != "":
 			ores[cell] = ore
 			_update_ore(cell)
+
+	#debug: how many of each ore spawned (use this to tune ORE_SPAWNS)
+	var counts := {}
+	for cell in ores:
+		counts[ores[cell]] = counts.get(ores[cell], 0) + 1
+	print("ores spawned: ", counts)
 
 
 #one random noise per ore

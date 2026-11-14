@@ -1,5 +1,6 @@
 extends Node
 
+signal loadDepthUI;  #shop transport -> pick depth -> then loadWaterEnviroment
 signal loadWaterEnviroment;
 signal loadShopEnviroment;
 signal exitGame;
@@ -10,10 +11,10 @@ signal mined(type:String)
 const SELL_PRICES := {
 	"rock": 1,
 	"iron": 4,
-	"amethyst": 6,
-	"gold": 10,
-	"ruby": 16,
-	"osmium":30
+	"gold": 9,
+	"amethyst": 12,
+	"ruby": 22,
+	"osmium": 40,
 }
 
 

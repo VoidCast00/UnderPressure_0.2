@@ -3,11 +3,11 @@ extends  Node
 signal changed(item: String, amount: int)
 signal oxygenDepleted
 
-var cash:int = 190:
+var cash:int = 0:
 	set(new_val):
 		cash = clamp(new_val, 0, INT64_MAX)
 		
-const BASE_OXYGEN := 60.0
+const BASE_OXYGEN := 80.0
 const BASE_CAPACITY := 20
 #these dont take inventory space
 const FREE_ITEMS := ["rock"]
