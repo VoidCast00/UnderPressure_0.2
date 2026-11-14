@@ -29,6 +29,7 @@ var oxygen: float:  #in seconds (filled in _ready)
 		if oxygen <= 0.0 and not was_empty:
 			oxygenDepleted.emit()
 
+var energy: float = 100
 
 #item name -> amount
 var items: Dictionary = {}
