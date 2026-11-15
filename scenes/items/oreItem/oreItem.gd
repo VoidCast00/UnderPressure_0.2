@@ -32,6 +32,8 @@ func _ready() -> void:
 			texture.texture = preload("res://scenes/items/oreItem/AmethystOreItem.png")
 		"ruby":
 			texture.texture = preload("res://scenes/items/oreItem/RubyOreItem.png")
+		"magmarine":
+			texture.texture = preload("res://scenes/items/oreItem/MagmarineOreItem.png")
 	print(oreType)
 
 func _physics_process(delta: float) -> void:

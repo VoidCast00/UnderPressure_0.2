@@ -27,6 +27,7 @@
 [ext_resource type="Texture2D" uid="uid://yvno3r1lfw2g" path="res://scenes/caveGenerator/Platinum.png" id="14_dsp2r"]
 [ext_resource type="AudioStream" uid="uid://0sye1sxv3rja" path="res://assets/audio/sfx/player/breathing.mp3" id="15_4h610"]
 [ext_resource type="Texture2D" uid="uid://b5ujv6qscuhvf" path="res://scenes/caveGenerator/Fluorite.png" id="15_v8fik"]
+[ext_resource type="Texture2D" uid="uid://d2t8hyuwa73vi" path="res://scenes/caveGenerator/Magmarine.png" id="16_dsp2r"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3aygq"]
 shader = ExtResource("4_g0opn")
@@ -376,6 +377,58 @@ texture_region_size = Vector2i(32, 32)
 6:5/0 = 0
 7:5/0 = 0
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_v8fik"]
+texture = ExtResource("16_dsp2r")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+6:0/0 = 0
+7:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+5:1/0 = 0
+6:1/0 = 0
+7:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+4:2/0 = 0
+5:2/0 = 0
+6:2/0 = 0
+7:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+4:3/0 = 0
+5:3/0 = 0
+6:3/0 = 0
+7:3/0 = 0
+0:4/0 = 0
+1:4/0 = 0
+2:4/0 = 0
+3:4/0 = 0
+4:4/0 = 0
+5:4/0 = 0
+6:4/0 = 0
+7:4/0 = 0
+0:5/0 = 0
+1:5/0 = 0
+2:5/0 = 0
+3:5/0 = 0
+4:5/0 = 0
+5:5/0 = 0
+6:5/0 = 0
+7:5/0 = 0
+
 [sub_resource type="TileSet" id="TileSet_pd0ml"]
 tile_size = Vector2i(32, 32)
 custom_data_layer_0/name = "Material"
@@ -388,6 +441,7 @@ sources/4 = SubResource("TileSetAtlasSource_pl7gi")
 sources/5 = SubResource("TileSetAtlasSource_dx2ph")
 sources/6 = SubResource("TileSetAtlasSource_4ymr0")
 sources/7 = SubResource("TileSetAtlasSource_5hegm")
+sources/8 = SubResource("TileSetAtlasSource_v8fik")
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_53e16"]
 polygon = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)

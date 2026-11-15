@@ -11,6 +11,7 @@ const SELL_PRICES := {
 	"rock": 1,       # 3.3 $/s
 	"iron": 4,       # 6.7 $/s
 	"lapis": 7,      # 8.8 $/s
+	"magmarine": 8,  # 8.9 $/s
 	"gold": 10,      #10.0 $/s
 	"amethyst": 12,  #13.3 $/s
 	"fluorite": 15,  #13.6 $/s

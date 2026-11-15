@@ -23,6 +23,7 @@ const ORE_SOURCES := {
 	"lapis": 5,
 	"platinum": 6,
 	"fluorite": 7,
+	"magmarine": 8,
 }
 
 #crystals grow out of walls (2x2 png, one tile per direction)
@@ -34,7 +35,7 @@ const CRYSTALS := ["amethyst", "ruby"]
 #  frequency: higher = smaller, more scattered patches
 #checked top to bottom and the first match wins, so rare ores go first
 #tuned with a simulation over 20 caves (~19 800 rock cells each), avg per cave:
-#  osmium 27, platinum 47, ruby 37, amethyst 73, fluorite 76, gold 134, lapis 206, iron 657
+#  osmium 27, platinum 42, ruby 35, amethyst 63, fluorite 75, gold 134, magmarine 173, lapis 204, iron 640
 #rarer = worth more (prices in Global.SELL_PRICES, mining times in MiningBlocksManager)
 const ORE_SPAWNS := [
 	{"ore": "osmium", "amount": 0.6, "frequency": 0.12},
@@ -43,7 +44,8 @@ const ORE_SPAWNS := [
 	{"ore": "amethyst", "amount": 0.83, "frequency": 0.027},
 	{"ore": "fluorite", "amount": 0.555, "frequency": 0.11},
 	{"ore": "gold", "amount": 0.52, "frequency": 0.1},
-	{"ore": "lapis", "amount": 0.495, "frequency": 0.07},
+	{"ore": "magmarine", "amount": 0.505, "frequency": 0.09},
+	{"ore": "lapis", "amount": 0.49, "frequency": 0.07},
 	{"ore": "iron", "amount": 0.40, "frequency": 0.08},
 ]
 

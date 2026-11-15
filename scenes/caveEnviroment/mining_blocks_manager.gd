@@ -10,6 +10,7 @@ const MINING_TIMES := {
 	"rock": 0.3,
 	"iron": 0.6,
 	"lapis": 0.8,
+	"magmarine": 0.9,
 	"gold": 1.0,
 	"amethyst": 0.9,
 	"fluorite": 1.1,
@@ -43,6 +44,7 @@ const CRACK_SHADER := "res://scenes/caveEnviroment/crack_mask.gdshader"
 @export var lapis_break: AudioStreamPlayer
 @export var platinum_break: AudioStreamPlayer
 @export var fluorite_break: AudioStreamPlayer
+@export var magmarine_break: AudioStreamPlayer
 
 @export var cpu_particles_2d: CPUParticles2D
 @export var after_break_par: CPUParticles2D
@@ -57,6 +59,7 @@ const CRACK_SHADER := "res://scenes/caveEnviroment/crack_mask.gdshader"
 	"lapis": lapis_break,
 	"platinum": platinum_break,
 	"fluorite": fluorite_break,
+	"magmarine": magmarine_break,
 }
 
 #pitch center per ore, so ores sharing a sound still sound different (missing = 1.0)
@@ -64,6 +67,7 @@ const BREAK_PITCH := {
 	"lapis": 0.85,
 	"platinum": 1.3,
 	"fluorite": 1.15,
+	"magmarine": 0.7,
 }
 
 @export var items: Node2D
