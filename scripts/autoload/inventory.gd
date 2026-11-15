@@ -35,7 +35,7 @@ var energy: float = 100
 var items: Dictionary = {}
 
 func _ready() -> void:
-	Global.mined.connect(add)
+	Global.itemPickedUp.connect(add)
 	#here and not above, Upgrades doesnt exist yet when variables are created
 	oxygen = oxygenTankSize
 

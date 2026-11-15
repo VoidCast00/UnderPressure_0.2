@@ -49,6 +49,9 @@ const CRACK_SHADER := "res://scenes/caveEnviroment/crack_mask.gdshader"
 	"osmium":osmium_break,
 }
 
+@export var items: Node2D
+@export var oreItemScene:PackedScene 
+
 var is_mining := false
 var mining_cell := Vector2i.ZERO
 var mining_type := ""
@@ -89,8 +92,14 @@ func _process(delta: float) -> void:
 	if mining_timer < duration:
 		return
 
-	#block is mined
-	Global.mined.emit(mining_type)
+	#block is mined!!!!!!!!!=====================================================================
+	var item :OreItem= oreItemScene.instantiate()
+	item.oreType = mining_type          
+	items.add_child(item)
+	item.global_position = cave.oreTilemap.to_global(cave.oreTilemap.map_to_local(mining_cell))
+	item.linear_velocity = Vector2.from_angle(randf() * TAU) * randf_range(10.0, 40.0)
+
+
 	
 	var sound: AudioStreamPlayer = break_sounds.get(mining_type)
 	if sound:

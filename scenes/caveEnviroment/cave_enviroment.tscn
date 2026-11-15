@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://y5xlodybp4wq" path="res://scenes/caveGenerator/Iron.png" id="5_dlsyl"]
 [ext_resource type="Script" uid="uid://ccus05sctsxmx" path="res://scenes/caveEnviroment/perlin_backround.gd" id="5_hyba4"]
 [ext_resource type="Script" uid="uid://cy2uceyx502qo" path="res://scenes/caveEnviroment/mining_blocks_manager.gd" id="5_oupmn"]
+[ext_resource type="PackedScene" uid="uid://muxwmmgdhfs" path="res://scenes/items/oreItem/oreItem.tscn" id="6_tqpg4"]
 [ext_resource type="Texture2D" uid="uid://du22iut02yode" path="res://scenes/caveGenerator/Amethist.png" id="7_epwr5"]
 [ext_resource type="Script" uid="uid://bokuosutvx4fr" path="res://scenes/caveEnviroment/transportUp.gd" id="7_k1atb"]
 [ext_resource type="AudioStream" uid="uid://wkufmiejh0rr" path="res://assets/audio/sfx/player/rubyDestroy.mp3" id="7_ti1pm"]
@@ -667,9 +668,11 @@ glow_sticks = NodePath("../GlowSticks")
 
 [node name="GlowSticks" type="Node2D" parent="Entities" unique_id=759713580]
 
+[node name="Items" type="Node2D" parent="Entities" unique_id=1617692190]
+
 [node name="Static" type="Node2D" parent="." unique_id=961585314]
 
-[node name="MiningBlocksManager" type="Node" parent="Static" unique_id=1494255721 node_paths=PackedStringArray("cave", "block_break", "iron_break", "gold_break", "amethist_break", "ruby_break", "osmium_break", "cpu_particles_2d", "after_break_par")]
+[node name="MiningBlocksManager" type="Node" parent="Static" unique_id=1494255721 node_paths=PackedStringArray("cave", "block_break", "iron_break", "gold_break", "amethist_break", "ruby_break", "osmium_break", "cpu_particles_2d", "after_break_par", "items")]
 script = ExtResource("5_oupmn")
 cave = NodePath("../WorldGenerator")
 block_break = NodePath("../TileMaps/Cave/BlockBreak")
@@ -680,6 +683,8 @@ ruby_break = NodePath("../TileMaps/Cave/rubyBreak")
 osmium_break = NodePath("../TileMaps/Cave/rubyBreak")
 cpu_particles_2d = NodePath("../BreakingPar")
 after_break_par = NodePath("../AfterBreakPar")
+items = NodePath("../../Entities/Items")
+oreItemScene = ExtResource("6_tqpg4")
 
 [node name="WorldGenerator" type="Node" parent="Static" unique_id=85954663 node_paths=PackedStringArray("caveTilemap", "oreTilemap", "transport")]
 script = ExtResource("3_g0opn")

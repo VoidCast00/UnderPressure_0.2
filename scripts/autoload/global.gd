@@ -6,7 +6,7 @@ signal loadShopEnviroment;
 signal exitGame;
 
 signal mined(type:String)
-
+signal itemPickedUp(type:String)
 #money you get for selling one of each material
 const SELL_PRICES := {
 	"rock": 1,

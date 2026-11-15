@@ -91,8 +91,6 @@ func mine(_delta: float) -> void:
 	if not LaserSound.playing:
 		LaserSound.play()
 
-	#step a bit inside the wall so we get the hit cell
-	var inside: Vector2 = hit - ray_cast.get_collision_normal() * 2.0
 	mining_manager.startMining(hit - ray_cast.get_collision_normal() )
 
 
