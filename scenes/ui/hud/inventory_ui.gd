@@ -12,17 +12,9 @@ const LINE := Color(1, 1, 1, 0.08)
 @onready var title: Label = $MarginContainer/VBoxContainer/Title
 @onready var separator: HSeparator = $MarginContainer/VBoxContainer/HSeparator
 @onready var item_list: VBoxContainer = $MarginContainer/VBoxContainer/ItemList
-@export var cash: Label
 
+#showing / hiding is done by hud.gd
 
-func _process(delta: float) -> void:
-	cash.text = "cash :"+str(Inventory.cash)
-	if Input.is_action_pressed("inventory"):
-		visible = true
-		cash.visible = false
-	else:
-		visible = false
-		cash.visible = true
 
 func _ready() -> void:
 	_style()
@@ -35,7 +27,7 @@ func _ready() -> void:
 	refresh()
 
 
-func _on_changed(_item: String, _amount: int) -> void:
+func _on_changed(_item: String, _amount: float) -> void:
 	refresh()
 
 
@@ -86,7 +78,6 @@ func refresh() -> void:
 	var names: Array = inventory.items.keys()
 	names.sort()
 	for item in names:
-		print(inventory.items[item])
 		add_row(item, inventory.items[item])
 
 
@@ -99,7 +90,7 @@ func add_row(item: String, amount: float) -> void:
 	row.add_child(name_label)
 
 	#amount
-	var amount_label := _make_label(str(amount), MUTED)
+	var amount_label := _make_label("%.2f" % amount, MUTED)
 	amount_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	row.add_child(amount_label)
 

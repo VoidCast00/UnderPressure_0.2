@@ -1,0 +1,68 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/ui/loading/loading_screen.gd" id="1_load"]
+
+[sub_resource type="SystemFont" id="SystemFont_se30j"]
+subpixel_positioning = 0
+
+[sub_resource type="FontVariation" id="FontVariation_kjrfb"]
+base_font = SubResource("SystemFont_se30j")
+variation_embolden = 1.29
+variation_transform = Transform2D(0.975, 0, 0, 1.05, 0, 0)
+spacing_glyph = 9
+
+[node name="LoadingScreen" type="Control" unique_id=550208983]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_load")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1102893148]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.13319641, 0.13319641, 0.13319638, 1)
+
+[node name="Title" type="Label" parent="." unique_id=812867912]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -135.47253
+offset_top = -34.5
+offset_right = 135.47241
+offset_bottom = 34.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.26194242, 0.5523878, 0.55113465, 1)
+theme_override_fonts/font = SubResource("FontVariation_kjrfb")
+theme_override_font_sizes/font_size = 200
+text = "DAY 1. BEGINS"
+
+[node name="Subtitle" type="Label" parent="." unique_id=938120431]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -270.0
+offset_top = -183.0
+offset_right = 270.0
+offset_bottom = -100.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.15818858, 0.20519975, 0.4036918, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_fonts/font = SubResource("FontVariation_kjrfb")
+theme_override_font_sizes/font_size = 90
+text = "DAY 1. BEGINS"

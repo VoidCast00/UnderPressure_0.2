@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dm3smp37mlq81"]
 
-[ext_resource type="Script" uid="uid://biicdacx6ovr1" path="res://scenes/ui/shopMenu/quota.gd" id="1_w1oiu"]
+[ext_resource type="Script" uid="uid://biicdacx6ovr1" path="res://scenes/ui/quota/quota_ui.gd" id="1_w1oiu"]
 [ext_resource type="Script" uid="uid://cpe2ml4pgkvvj" path="res://scenes/AnimatedButton/animated_button.gd" id="2_yw63d"]
 
 [node name="Quota" type="Control" unique_id=95708323 node_paths=PackedStringArray("label")]

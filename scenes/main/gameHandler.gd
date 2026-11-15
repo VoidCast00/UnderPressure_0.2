@@ -1,111 +1,115 @@
 extends Node
 
+#runs the game loop: main menu -> shop -> pick depth -> dive -> shop ...
+#swaps environments inside the SubViewport and shows / hides the UI for each step
 
+#environments
 @export var sub_viewport: SubViewport
 @export var WaterEnviroment: PackedScene
 @export var ShopEnviroment: PackedScene
-@export var menu:Control
-@export var pause:Control
-@export var oxygen_gauge: Control 
-@export var label: Label
-@export var lost_quota: Control
-@export var main_menu: Control
-@export var death: Control
-@export var depth: Control
 
+#ui (all inside UI in game.tscn)
+@export var main_menu: Control
+@export var pause: Control
+@export var oxygen_gauge: OxygenGauge
+@export var depth: Control
+@export var loading: LoadingScreen
+@export var lost_quota: Control
+@export var death: Control
+@export var shop_ui: Control
+@export var quota_ui: Control
 
 #current environment
 var current_env: Node = null
 var is_loading := false
 
+
 func _ready() -> void:
-	Inventory.oxygenDepleted.connect(killPLayer)
+	#environments look these up through Global
+	Global.shop_ui = shop_ui
+	Global.quota_ui = quota_ui
+	Global.loading_text = loading
+
+	Inventory.oxygenDepleted.connect(killPlayer)
 	pause.resume.connect(switchPause)
-	Global.shop_ui = %ShopUI
-	Global.quota_ui = %Qouta
-	Global.loading_text = %LoadingText
-	Global.oxygen_gauge = oxygen_gauge
 	Global.loadDepthUI.connect(loadDepthUi)
 	Global.loadWaterEnviroment.connect(loadWaterEnviroment)
 	Global.loadShopEnviroment.connect(loadShopEnviroment)
 	Global.exitGame.connect(exitGame)
-	
 
-func loadDepthUi()-> void:
-	menu.hide()
+
+func _unhandled_input(event: InputEvent) -> void:
+	if not event.is_action_pressed("esc"):
+		return
+	if main_menu.visible:
+		return
+	switchPause()
+
+
+#=== game flow =================================================================
+
+func loadDepthUi() -> void:
+	main_menu.hide()
 	depth.show()
 
+
 func loadWaterEnviroment() -> void:
-	menu.hide()
-	oxygen_gauge.show()
+	main_menu.hide()
 	depth.hide()
-	%LoadingText.show()
-	
-	var daysLeft = (Global.deadline - Global.day) 
-	if (daysLeft == 0 or Global.quotaCompletedAmount >= Global.quota):
-			if Global.quotaCompletedAmount >= Global.quota:
-				Global.quota *= 2
-				Global.deadline -= daysLeft
-				Global.deadline += 3
-				Global.quotaCompletedAmount = 0
-				var text = "Loading..."
-				Global.loading_text.get_children()[1].text = text
-				Global.loading_text.get_children()[2].text = "Quota: " + str(Global.quota)
-				Global.loading_text.show()
-				load_env(WaterEnviroment)
-			else:
-				lost_quota.show()
-				var sound : AudioStreamPlayer = main_menu.main_menu_soundtrack
-				sound.play()
-				sound.pitch_scale = 0.8
-				unload()
+	oxygen_gauge.show()
+	loading.show_message("Loading...", "Quota: %d" % Global.quota)
+
+	var days_left := Global.deadline - Global.day
+	if Global.is_quota_met():
+		Global.start_next_quota()
+		loading.show_message("Loading...", "Quota: %d" % Global.quota)
+		load_env(WaterEnviroment)
+	elif days_left == 0:
+		loseQuota()
 	else:
 		Global.day += 1
 		load_env(WaterEnviroment)
-		
-
-func killPLayer():
-	unload()
-	death.show()
-
-
-func unload() -> void:
-	if current_env:
-		current_env.queue_free()
 
 
 func loadShopEnviroment() -> void:
-	var daysLeft = (Global.deadline - Global.day) 			
-	var text :String = ""
-	if daysLeft == 1:
-		text = "1. day remeaning"
-	else:
-		text = str(daysLeft) + ". days remaning"
-	Global.loading_text.get_children()[1].text = text
-	Global.loading_text.get_children()[2].text = "Quota: " + str(Global.quota)
-	Global.loading_text.show()
-	menu.hide()
+	var days_left := Global.deadline - Global.day
+	var text := "1. day remeaning" if days_left == 1 else "%d. days remaning" % days_left
+	loading.show_message(text, "Quota: %d" % Global.quota)
+	main_menu.hide()
 	oxygen_gauge.hide()
 	await get_tree().create_timer(2.0).timeout
 	load_env(ShopEnviroment)
 
 
-func exitGame():
+#=== endings ===================================================================
+
+func killPlayer() -> void:
+	unload()
+	death.show()
+
+
+func loseQuota() -> void:
+	lost_quota.show()
+	var sound: AudioStreamPlayer = main_menu.main_menu_soundtrack
+	sound.play()
+	sound.pitch_scale = 0.8
+	unload()
+
+
+func exitGame() -> void:
 	get_tree().quit()
-	
+
 
 func switchPause() -> void:
 	pause.visible = not pause.visible
 	get_tree().paused = pause.visible
 
 
-func _unhandled_input(event: InputEvent) -> void:
-	if not event.is_action_pressed("esc"):
-		return
+#=== environments ==============================================================
 
-	if menu.visible:
-		return
-	switchPause()
+func unload() -> void:
+	if current_env:
+		current_env.queue_free()
 
 
 func load_env(scene: PackedScene) -> void:
@@ -116,7 +120,7 @@ func load_env(scene: PackedScene) -> void:
 		return
 	is_loading = true
 
-	Global.loading_text.show()
+	loading.show()
 
 	await get_tree().process_frame
 
@@ -130,9 +134,5 @@ func load_env(scene: PackedScene) -> void:
 	await current_env.ready
 	await get_tree().process_frame
 
-
-	Global.loading_text.hide()
+	loading.hide()
 	is_loading = false
-		
-		
-		

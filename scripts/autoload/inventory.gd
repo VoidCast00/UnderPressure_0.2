@@ -41,20 +41,20 @@ func _ready() -> void:
 #add (only what fits)
 func add(item: String, amount: float) -> void:
 	if item not in FREE_ITEMS:
-		amount = mini(amount, space_left())
-		if amount <= 0:
+		amount = minf(amount, space_left())
+		if amount <= 0.0:
 			return
 
 	items[item] = get_amount(item) + amount
 	changed.emit(item, items[item])
 
 #remove (returns false if not enough)
-func remove(item: String, amount: int = 1) -> bool:
+func remove(item: String, amount: float = 1.0) -> bool:
 	if not has(item, amount):
 		return false
 
 	items[item] -= amount
-	if items[item] <= 0:
+	if items[item] <= 0.001:  #float leftovers
 		items.erase(item)
 
 	changed.emit(item, get_amount(item))
@@ -62,23 +62,23 @@ func remove(item: String, amount: int = 1) -> bool:
 
 
 #check
-func has(item: String, amount: int = 1) -> bool:
-	return get_amount(item) >= amount
+func has(item: String, amount: float = 1.0) -> bool:
+	return get_amount(item) >= amount - 0.001
 
 
 #get amount
 func get_amount(item: String) -> float:
-	return items.get(item, 0)
+	return items.get(item, 0.0)
 
 
 #space
-func used_space() -> int:
-	var used := 0
+func used_space() -> float:
+	var used := 0.0
 	for item in items:
 		if item not in FREE_ITEMS:
 			used += items[item]
 	return used
 
 
-func space_left() -> int:
+func space_left() -> float:
 	return capacity - used_space()

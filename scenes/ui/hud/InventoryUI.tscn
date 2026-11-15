@@ -1,0 +1,32 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" uid="uid://b2ckqh0k0xeai" path="res://scenes/ui/hud/inventory_ui.gd" id="1_inv"]
+
+[node name="InventoryUI" type="PanelContainer" unique_id=1053938935]
+visible = false
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -233.0
+grow_horizontal = 0
+grow_vertical = 2
+script = ExtResource("1_inv")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1554347248]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=989265304]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="MarginContainer/VBoxContainer" unique_id=143493802]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 50
+text = "Inventory"
+
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/VBoxContainer" unique_id=422437362]
+layout_mode = 2
+
+[node name="ItemList" type="VBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1147646431]
+layout_mode = 2

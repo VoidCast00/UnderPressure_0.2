@@ -1,0 +1,21 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/ui/hud/hud.gd" id="1_hud"]
+[ext_resource type="PackedScene" path="res://scenes/ui/hud/InventoryUI.tscn" id="2_inv"]
+[ext_resource type="PackedScene" path="res://scenes/ui/hud/OxygenGauge.tscn" id="3_gauge"]
+
+[node name="HUD" type="CanvasLayer" unique_id=1158114887]
+script = ExtResource("1_hud")
+
+[node name="InventoryUI" parent="." instance=ExtResource("2_inv")]
+
+[node name="OxygenGauge" parent="." instance=ExtResource("3_gauge")]
+
+[node name="Cash" type="Label" parent="." unique_id=1623392781]
+offset_left = 1687.0
+offset_right = 1873.0
+offset_bottom = 55.0
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.6001677, 0.43681005, 0.16468826, 1)
+theme_override_font_sizes/font_size = 40
+text = "cash: 0"

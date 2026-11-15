@@ -3,97 +3,18 @@
 [ext_resource type="PackedScene" uid="uid://ba7vddmnq4tp" path="res://scenes/caveEnviroment/cave_enviroment.tscn" id="1_e3dby"]
 [ext_resource type="Shader" uid="uid://4o44qqvquetx" path="res://scenes/main/PixelPerfect.gdshader" id="1_gf1f2"]
 [ext_resource type="Script" uid="uid://ccoeuwkyb0cbq" path="res://scenes/main/gameHandler.gd" id="2_e3dby"]
-[ext_resource type="Script" uid="uid://b2ckqh0k0xeai" path="res://scenes/player/inventory_ui.gd" id="3_0rn35"]
+[ext_resource type="PackedScene" path="res://scenes/ui/hud/HUD.tscn" id="3_hud"]
 [ext_resource type="PackedScene" uid="uid://cgl2trpwxfw1n" path="res://scenes/ui/shopMenu/ShopUI.tscn" id="4_0rn35"]
 [ext_resource type="PackedScene" uid="uid://fm42lqidpgmx" path="res://scenes/ui/mainMenu/mainMenu.tscn" id="4_gf1f2"]
 [ext_resource type="PackedScene" uid="uid://bp55nk6o06xuj" path="res://scenes/shopEnviroment/shop.tscn" id="4_gsayk"]
 [ext_resource type="PackedScene" uid="uid://c504bi1omh3rr" path="res://scenes/ui/gamePause/pause_ui.tscn" id="5_kjrfb"]
-[ext_resource type="PackedScene" uid="uid://5e0cwdormxti" path="res://scenes/ui/shopMenu/DepthSlider.tscn" id="6_ktwa8"]
-[ext_resource type="PackedScene" uid="uid://dm3smp37mlq81" path="res://scenes/ui/shopMenu/Quota.tscn" id="9_se30j"]
+[ext_resource type="PackedScene" uid="uid://5e0cwdormxti" path="res://scenes/ui/depth/DepthSlider.tscn" id="6_ktwa8"]
+[ext_resource type="PackedScene" path="res://scenes/ui/loading/LoadingScreen.tscn" id="7_load"]
+[ext_resource type="PackedScene" uid="uid://dm3smp37mlq81" path="res://scenes/ui/quota/Quota.tscn" id="9_se30j"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_uaush"]
 shader = ExtResource("1_gf1f2")
 shader_parameter/cam_offset = Vector2(0, 0)
-
-[sub_resource type="GDScript" id="GDScript_em1bs"]
-script/source = "extends Control
-# WARNING: AI GENERATED UI
-#colors
-const BG := Color(0.07, 0.07, 0.08, 0.85)
-const TEXT := Color(0.92, 0.91, 0.88)
-const MUTED := Color(0.55, 0.55, 0.55)
-const OFF := Color(1, 1, 1, 0.08)
-const FILL := Color(0.78, 0.86, 0.9)
-const RED := Color(0.9, 0.25, 0.2)
-
-#settings
-const LOW := 0.25        #blink below 25%
-const SEGMENTS := 36
-const THICKNESS := 6.0
-
-var oxygen := 0.0
-var max_oxygen := 1.0
-var alert := 0.0         #0 normal, 1 full red
-
-
-func _ready() -> void:
-	custom_minimum_size = Vector2(120, 120)
-	size = custom_minimum_size
-
-
-func _process(_delta: float) -> void:
-	oxygen = Inventory.oxygen
-	max_oxygen = Inventory.oxygenTankSize
-	alert = _get_alert(oxygen / max_oxygen)
-	queue_redraw()
-
-
-#red warning
-func _get_alert(ratio: float) -> float:
-	var t := Time.get_ticks_msec() / 1000.0
-
-	#empty fast on off
-	if ratio <= 0.0:
-		return 1.0 if fmod(t, 0.25) < 0.125 else 0.0
-
-	#low slow pulse
-	if ratio < LOW:
-		return (sin(t * 6.0) + 1.0) / 2.0
-
-	return 0.0
-
-
-func _draw() -> void:
-	var ratio := oxygen / max_oxygen
-	var center := size / 2.0
-	var half := minf(size.x, size.y) / 2.0
-	var ring := half - 12.0
-
-	#background
-	draw_circle(center, half, BG)
-
-	#segments
-	var step := TAU / SEGMENTS
-	var on_color := FILL.lerp(RED, alert)
-	var off_color := OFF.lerp(Color(RED, 0.35), alert) if ratio <= 0.0 else OFF
-
-	for i in SEGMENTS:
-		var start := -PI / 2.0 + i * step
-		var color := on_color if i < ratio * SEGMENTS else off_color
-		draw_arc(center, ring, start, start + step * 0.7, 6, color, THICKNESS, true)
-
-	#text
-	var font := get_theme_default_font()
-	var left := center.x - half
-	var width := half * 2.0
-
-	draw_string(font, Vector2(left, center.y - 14), \"O2\",
-		HORIZONTAL_ALIGNMENT_CENTER, width, 11, MUTED)
-	draw_string(font, Vector2(left, center.y + 10), str(ceili(oxygen)),
-		HORIZONTAL_ALIGNMENT_CENTER, width, 28, TEXT.lerp(RED, alert))
-	draw_string(font, Vector2(left, center.y + 26), \"/ %d\" % int(max_oxygen),
-		HORIZONTAL_ALIGNMENT_CENTER, width, 11, MUTED)
-"
 
 [sub_resource type="Gradient" id="Gradient_kjrfb"]
 offsets = PackedFloat32Array(0.008, 1)
@@ -117,15 +38,6 @@ spacing_glyph = 2
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3aygq"]
 bg_color = Color(0, 0, 0, 1)
 
-[sub_resource type="SystemFont" id="SystemFont_se30j"]
-subpixel_positioning = 0
-
-[sub_resource type="FontVariation" id="FontVariation_kjrfb"]
-base_font = SubResource("SystemFont_se30j")
-variation_embolden = 1.29
-variation_transform = Transform2D(0.975, 0, 0, 1.05, 0, 0)
-spacing_glyph = 9
-
 [node name="Game" type="Node2D" unique_id=1476364967]
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=1451652045]
@@ -146,70 +58,40 @@ process_mode = 3
 layout_mode = 3
 anchors_preset = 0
 
-[node name="PlayerUI" type="CanvasLayer" parent="UI" unique_id=1158114887]
+[node name="HUD" parent="UI" instance=ExtResource("3_hud")]
 
-[node name="InventoryUI" type="PanelContainer" parent="UI/PlayerUI" unique_id=1053938935 node_paths=PackedStringArray("cash")]
-visible = false
-anchors_preset = 11
-anchor_left = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -233.0
-grow_horizontal = 0
-grow_vertical = 2
-script = ExtResource("3_0rn35")
-cash = NodePath("../Cash")
+[node name="Shop" type="CanvasLayer" parent="UI" unique_id=1322652776]
 
-[node name="MarginContainer" type="MarginContainer" parent="UI/PlayerUI/InventoryUI" unique_id=1554347248]
-layout_mode = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/PlayerUI/InventoryUI/MarginContainer" unique_id=989265304]
-layout_mode = 2
-
-[node name="Title" type="Label" parent="UI/PlayerUI/InventoryUI/MarginContainer/VBoxContainer" unique_id=143493802]
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 50
-text = "Inventory"
-
-[node name="HSeparator" type="HSeparator" parent="UI/PlayerUI/InventoryUI/MarginContainer/VBoxContainer" unique_id=422437362]
-layout_mode = 2
-
-[node name="ItemList" type="VBoxContainer" parent="UI/PlayerUI/InventoryUI/MarginContainer/VBoxContainer" unique_id=1147646431]
-layout_mode = 2
-
-[node name="OxygenGauge" type="Control" parent="UI/PlayerUI" unique_id=208118251]
+[node name="ShopUI" parent="UI/Shop" unique_id=1585925505 instance=ExtResource("4_0rn35")]
 unique_name_in_owner = true
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-script = SubResource("GDScript_em1bs")
+visible = false
 
-[node name="Cash" type="Label" parent="UI/PlayerUI" unique_id=1623392781]
-offset_left = 1687.0
-offset_right = 1873.0
-offset_bottom = 55.0
-size_flags_horizontal = 4
-theme_override_colors/font_color = Color(0.6001677, 0.43681005, 0.16468826, 1)
-theme_override_font_sizes/font_size = 40
-text = "Inventory"
+[node name="ShopMenus" type="CanvasLayer" parent="UI" unique_id=1032524161]
+layer = 2
 
-[node name="Menu" type="CanvasLayer" parent="UI" unique_id=2068374819]
+[node name="Quota" parent="UI/ShopMenus" unique_id=95708323 instance=ExtResource("9_se30j")]
+visible = false
+
+[node name="Depth" parent="UI/ShopMenus" unique_id=1389341063 instance=ExtResource("6_ktwa8")]
+visible = false
+
+[node name="Loading" type="CanvasLayer" parent="UI"]
+layer = 3
+
+[node name="LoadingScreen" parent="UI/Loading" instance=ExtResource("7_load")]
+
+[node name="Menus" type="CanvasLayer" parent="UI" unique_id=2068374819]
 layer = 5
 
-[node name="Depth" parent="UI/Menu" unique_id=1389341063 node_paths=PackedStringArray("game_manager") instance=ExtResource("6_ktwa8")]
-visible = false
-game_manager = NodePath("../../../GameManager")
+[node name="MainMenu" parent="UI/Menus" unique_id=838703653 instance=ExtResource("4_gf1f2")]
 
-[node name="MainMenu" parent="UI/Menu" unique_id=838703653 node_paths=PackedStringArray("label_2", "tutorial") instance=ExtResource("4_gf1f2")]
-label_2 = NodePath("../tutorial/Label2")
-tutorial = NodePath("../tutorial")
-
-[node name="pauseUI" parent="UI/Menu" unique_id=1920711429 instance=ExtResource("5_kjrfb")]
+[node name="PauseUI" parent="UI/Menus" unique_id=1920711429 instance=ExtResource("5_kjrfb")]
 visible = false
 
-[node name="lostQuota" type="Control" parent="UI/Menu" unique_id=2017476263]
+[node name="Screens" type="CanvasLayer" parent="UI"]
+layer = 6
+
+[node name="LostQuota" type="Control" parent="UI/Screens" unique_id=2017476263]
 visible = false
 layout_mode = 3
 anchors_preset = 15
@@ -218,7 +100,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Panel" type="Panel" parent="UI/Menu/lostQuota" unique_id=1466905572]
+[node name="Panel" type="Panel" parent="UI/Screens/LostQuota" unique_id=1466905572]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -227,7 +109,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_3aygq")
 
-[node name="Label" type="Label" parent="UI/Menu/lostQuota" unique_id=1721464112]
+[node name="Label" type="Label" parent="UI/Screens/LostQuota" unique_id=1721464112]
 layout_mode = 0
 offset_left = 260.0
 offset_top = 214.0
@@ -244,7 +126,7 @@ You grab the chain and wait for the anchor to stop...
 
  The light above you fades as you sink deeper and deeper till your oxygen runs out."
 
-[node name="tutorial" type="Control" parent="UI/Menu" unique_id=1569939152]
+[node name="Death" type="Control" parent="UI/Screens" unique_id=1479694088]
 visible = false
 layout_mode = 3
 anchors_preset = 15
@@ -253,58 +135,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Panel" type="Panel" parent="UI/Menu/tutorial" unique_id=737467559]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxTexture_3aygq")
-
-[node name="Label" type="Label" parent="UI/Menu/tutorial" unique_id=2141948279]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -395.0
-offset_top = -133.5
-offset_right = 395.0
-offset_bottom = 133.5
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_fonts/font = SubResource("FontVariation_se30j")
-theme_override_font_sizes/font_size = 30
-text = "You own The Company a lot.
-
-The quotas are every 3 days. Pay or see what happenes.
-
-The Company hates overtime. 
-
-Pay. On. Time."
-
-[node name="Label2" type="Label" parent="UI/Menu/tutorial" unique_id=1183531753]
-visible = false
-layout_mode = 0
-offset_left = 1282.0
-offset_top = 935.0
-offset_right = 1899.0
-offset_bottom = 1131.0
-theme_override_font_sizes/font_size = 45
-text = "Press any key to continue"
-
-[node name="Death" type="Control" parent="UI/Menu" unique_id=1479694088]
-visible = false
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Panel" type="Panel" parent="UI/Menu/Death" unique_id=906128457]
+[node name="Panel" type="Panel" parent="UI/Screens/Death" unique_id=906128457]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -313,7 +144,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_3aygq")
 
-[node name="Label" type="Label" parent="UI/Menu/Death" unique_id=494685014]
+[node name="Label" type="Label" parent="UI/Screens/Death" unique_id=494685014]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -331,84 +162,18 @@ text = "Theres nothing left in the oxygen tank. Water fills your lung ... and yo
 
 Just endure it. Just a couple more seconds before the end. At least you can meet them now."
 
-[node name="Shop" type="CanvasLayer" parent="UI" unique_id=1322652776]
-
-[node name="ShopUI" parent="UI/Shop" unique_id=1585925505 instance=ExtResource("4_0rn35")]
-unique_name_in_owner = true
-visible = false
-
-[node name="LoadingText" type="Control" parent="UI/Shop" unique_id=550208983]
-unique_name_in_owner = true
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="ColorRect" type="ColorRect" parent="UI/Shop/LoadingText" unique_id=1102893148]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.13319641, 0.13319641, 0.13319638, 1)
-
-[node name="Label" type="Label" parent="UI/Shop/LoadingText" unique_id=812867912]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -135.47253
-offset_top = -34.5
-offset_right = 135.47241
-offset_bottom = 34.5
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/font_color = Color(0.26194242, 0.5523878, 0.55113465, 1)
-theme_override_fonts/font = SubResource("FontVariation_kjrfb")
-theme_override_font_sizes/font_size = 200
-text = "DAY 1. BEGINS"
-
-[node name="QuatoAmmont" type="Label" parent="UI/Shop/LoadingText" unique_id=938120431]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -270.0
-offset_top = -183.0
-offset_right = 270.0
-offset_bottom = -100.0
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_colors/font_color = Color(0.15818858, 0.20519975, 0.4036918, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 3
-theme_override_fonts/font = SubResource("FontVariation_kjrfb")
-theme_override_font_sizes/font_size = 90
-text = "DAY 1. BEGINS"
-
-[node name="Quota" type="CanvasLayer" parent="UI" unique_id=1032524161]
-
-[node name="Qouta" parent="UI/Quota" unique_id=95708323 instance=ExtResource("9_se30j")]
-unique_name_in_owner = true
-visible = false
-
-[node name="GameManager" type="Node" parent="." unique_id=1531804948 node_paths=PackedStringArray("sub_viewport", "menu", "pause", "oxygen_gauge", "lost_quota", "main_menu", "death", "depth")]
+[node name="GameManager" type="Node" parent="." unique_id=1531804948 node_paths=PackedStringArray("sub_viewport", "main_menu", "pause", "oxygen_gauge", "depth", "loading", "lost_quota", "death", "shop_ui", "quota_ui")]
 process_mode = 3
 script = ExtResource("2_e3dby")
 sub_viewport = NodePath("../SubViewportContainer/SubViewport")
 WaterEnviroment = ExtResource("1_e3dby")
 ShopEnviroment = ExtResource("4_gsayk")
-menu = NodePath("../UI/Menu/MainMenu")
-pause = NodePath("../UI/Menu/pauseUI")
-oxygen_gauge = NodePath("../UI/PlayerUI/OxygenGauge")
-lost_quota = NodePath("../UI/Menu/lostQuota")
-main_menu = NodePath("../UI/Menu/MainMenu")
-death = NodePath("../UI/Menu/Death")
-depth = NodePath("../UI/Menu/Depth")
+main_menu = NodePath("../UI/Menus/MainMenu")
+pause = NodePath("../UI/Menus/PauseUI")
+oxygen_gauge = NodePath("../UI/HUD/OxygenGauge")
+depth = NodePath("../UI/ShopMenus/Depth")
+loading = NodePath("../UI/Loading/LoadingScreen")
+lost_quota = NodePath("../UI/Screens/LostQuota")
+death = NodePath("../UI/Screens/Death")
+shop_ui = NodePath("../UI/Shop/ShopUI")
+quota_ui = NodePath("../UI/ShopMenus/Quota")

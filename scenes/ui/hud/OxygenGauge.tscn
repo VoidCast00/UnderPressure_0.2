@@ -1,0 +1,10 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/ui/hud/oxygen_gauge.gd" id="1_gauge"]
+
+[node name="OxygenGauge" type="Control" unique_id=208118251]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_gauge")

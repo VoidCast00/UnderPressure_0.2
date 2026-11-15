@@ -15,15 +15,43 @@ const SELL_PRICES := {
 	"osmium": 40,
 }
 
+const DAYS_PER_QUOTA := 3
+
 var quota:int = 190;
 var day:int =  0; #for the start to start counting
-var deadline:int = 3;  
+var deadline:int = DAYS_PER_QUOTA;
 var quotaCompletedAmount:int = 0;
 var depthLevel := 0
 
 var tutorialDone := false
 
-@onready var oxygen_gauge: Control 
-@onready var shop_ui: Control 
-@onready var loading_text: Control 
-@onready var quota_ui: Control
+#set by the game manager in game.tscn
+var shop_ui: Control
+var loading_text: LoadingScreen
+var quota_ui: Control
+
+
+#=== quota =====================================================================
+
+func quota_left() -> int:
+	return maxi(quota - quotaCompletedAmount, 0)
+
+
+func is_quota_met() -> bool:
+	return quotaCompletedAmount >= quota
+
+
+#pays up to amount, never more than you have or more than whats left
+func pay_quota(amount: int) -> void:
+	var paid := mini(mini(amount, Inventory.cash), quota_left())
+	if paid <= 0:
+		return
+	Inventory.cash -= paid
+	quotaCompletedAmount += paid
+
+
+#quota paid -> double it and give a fresh deadline
+func start_next_quota() -> void:
+	quota *= 2
+	deadline = day + DAYS_PER_QUOTA
+	quotaCompletedAmount = 0

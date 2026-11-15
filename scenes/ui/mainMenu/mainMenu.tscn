@@ -47,7 +47,26 @@ corner_radius_bottom_left = 16
 shadow_color = Color(0.15294118, 0.15294118, 0.15294118, 0.8784314)
 shadow_offset = Vector2(8, 5)
 
-[node name="MainMenu" type="Control" unique_id=838703653 node_paths=PackedStringArray("main_menu_soundtrack", "start", "options", "exit")]
+[sub_resource type="Gradient" id="Gradient_tut"]
+offsets = PackedFloat32Array(0.008, 1)
+colors = PackedColorArray(0.16, 0.16, 0.16, 1, 0.05, 0.05, 0.05, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_tut"]
+gradient = SubResource("Gradient_tut")
+fill_to = Vector2(1, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_tut"]
+texture = SubResource("GradientTexture2D_tut")
+
+[sub_resource type="FontVariation" id="FontVariation_tut1"]
+variation_embolden = 1.06
+
+[sub_resource type="FontVariation" id="FontVariation_tut2"]
+base_font = SubResource("FontVariation_tut1")
+variation_embolden = 1.2
+spacing_glyph = 2
+
+[node name="MainMenu" type="Control" unique_id=838703653 node_paths=PackedStringArray("main_menu_soundtrack", "start", "options", "exit", "label_2", "tutorial")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -59,6 +78,8 @@ main_menu_soundtrack = NodePath("mainMenuSoundtrack")
 start = NodePath("VBoxContainer/start")
 options = NodePath("VBoxContainer/options")
 exit = NodePath("VBoxContainer/exit")
+label_2 = NodePath("Tutorial/Label2")
+tutorial = NodePath("Tutorial")
 
 [node name="Panel" type="Panel" parent="." unique_id=739571034]
 z_index = -2
@@ -147,3 +168,54 @@ texture_filter = 1
 position = Vector2(988, 399)
 scale = Vector2(4, 4)
 texture = ExtResource("6_0stch")
+
+[node name="Tutorial" type="Control" parent="." unique_id=1569939152]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="Tutorial" unique_id=737467559]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_tut")
+
+[node name="Label" type="Label" parent="Tutorial" unique_id=2141948279]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -395.0
+offset_top = -133.5
+offset_right = 395.0
+offset_bottom = 133.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = SubResource("FontVariation_tut2")
+theme_override_font_sizes/font_size = 30
+text = "You own The Company a lot.
+
+The quotas are every 3 days. Pay or see what happenes.
+
+The Company hates overtime. 
+
+Pay. On. Time."
+
+[node name="Label2" type="Label" parent="Tutorial" unique_id=1183531753]
+visible = false
+layout_mode = 0
+offset_left = 1282.0
+offset_top = 935.0
+offset_right = 1899.0
+offset_bottom = 1131.0
+theme_override_font_sizes/font_size = 45
+text = "Press any key to continue"
