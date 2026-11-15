@@ -90,7 +90,7 @@ func add_row(item: String, amount: float) -> void:
 	row.add_child(name_label)
 
 	#amount
-	var amount_label := _make_label("%.2f" % amount, MUTED)
+	var amount_label := _make_label("%.2f" % amount + "g", MUTED)
 	amount_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	row.add_child(amount_label)
 

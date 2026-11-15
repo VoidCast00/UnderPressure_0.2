@@ -40,6 +40,8 @@ shadow_color = Color(0.15294118, 0.15294118, 0.15294118, 0.8784314)
 shadow_offset = Vector2(8, 5)
 
 [node name="Item" type="PanelContainer" unique_id=649771014]
+offset_right = 278.0
+offset_bottom = 28.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_jgblb")
 script = ExtResource("1_3w3rt")
 

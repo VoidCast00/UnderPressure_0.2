@@ -733,7 +733,7 @@ shape = SubResource("RectangleShape2D_uaush")
 
 [node name="CustomPlayer" type="CharacterBody2D" parent="." unique_id=1560269461]
 z_index = 50
-position = Vector2(-357, 596)
+position = Vector2(-300, 596)
 scale = Vector2(1.2, 1.2)
 collision_mask = 6
 script = ExtResource("1_ry6u4")
@@ -750,6 +750,7 @@ position_smoothing_enabled = true
 position_smoothing_speed = 10.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CustomPlayer" unique_id=1020860923]
+position = Vector2(-0.8333435, 0)
 scale = Vector2(6, 6)
 sprite_frames = SubResource("SpriteFrames_8iceo")
 animation = &"jump"

@@ -20,10 +20,13 @@ var money_tween: Tween
 @export var upgradesList: VBoxContainer
 @export var trait_upgrades: VBoxContainer
 @export var itemsList: VBoxContainer
+@export var back: AnimatedButton
+
 
 func _ready() -> void:
 	back0.pressed.connect(go_back)
 	back1.pressed.connect(go_back)
+	back.pressed.connect(go_back)
 	var temp_trait_upgrades_list:Array;
 	for id in Upgrades.ALL:
 		var upgradeItem:UpgradeObjUI= UPGRADE_OBJECT.instantiate()
@@ -80,6 +83,7 @@ func _on_items_pressed() -> void:
 func go_back() -> void:
 	sell.hide()
 	buy.hide()
+	items.hide()
 	buttons.show()
 	
 

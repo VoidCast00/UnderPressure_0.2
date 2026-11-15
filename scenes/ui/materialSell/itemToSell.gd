@@ -10,7 +10,7 @@ var parent:Control
 func _ready() -> void:
 	sellButton.pressed.connect(sell)
 	$HBox/ItemName.text = str(itemName)
-	$HBox/Count.text = "%.2f" % itemCount
+	$HBox/Count.text = "%.2f" % itemCount + "g  X " + "%.0f" % sellAmount
 
 func sell() -> void:
 	Inventory.cash += roundi(itemCount * sellAmount)

@@ -1,5 +1,8 @@
 class_name BuyingObjUI
-extends Control
+extends PanelContainer
+
+@export var name1: Label
+@export var desc: Label
 
 var itemName:String;
 var description:String;
@@ -8,8 +11,9 @@ var sellAmount:float;
 
 func _ready() -> void:
 	sellButton.pressed.connect(pay)
-	$Panel/Name.text = str(itemName)
-	$Panel/Desc.text = str(description)
+	name1.text = str(itemName)
+	desc.text = str(description)
+	sellButton.text = "Buy: cost " + str(sellAmount)
 	
 func pay():
 	if(Inventory.cash - sellAmount >= 0):

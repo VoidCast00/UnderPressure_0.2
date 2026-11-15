@@ -3,55 +3,32 @@
 [ext_resource type="Script" uid="uid://cxsuk2ool656l" path="res://scenes/ui/itemToBuy/itemToBuy.gd" id="1_x0cr8"]
 [ext_resource type="Script" uid="uid://cpe2ml4pgkvvj" path="res://scenes/AnimatedButton/animated_button.gd" id="2_hx5mn"]
 
-[node name="itemToBuy" type="Control" unique_id=2028041441 node_paths=PackedStringArray("sellButton")]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = -1584.0
-offset_bottom = -850.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="itemToBuy" type="PanelContainer" unique_id=1204048268 node_paths=PackedStringArray("name1", "desc", "sellButton")]
+offset_right = 109.0
+offset_bottom = 49.0
 script = ExtResource("1_x0cr8")
-sellButton = NodePath("Panel/AnimatedButton")
+name1 = NodePath("VBoxContainer/Name")
+desc = NodePath("VBoxContainer/Desc")
+sellButton = NodePath("VBoxContainer/AnimatedButton")
 
-[node name="Panel" type="Panel" parent="." unique_id=552574166]
-layout_mode = 1
-anchors_preset = -1
-anchor_top = 0.097
-anchor_right = 1.08
-anchor_bottom = 0.92200005
-offset_top = -15.310001
-offset_right = -1.8800049
-offset_bottom = -0.060012817
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1095332784]
+layout_mode = 2
 
-[node name="Name" type="Label" parent="Panel" unique_id=1239319915]
-layout_mode = 0
-offset_left = 7.0
-offset_top = -9.0
-offset_right = 298.0
-offset_bottom = 261.0
+[node name="Name" type="Label" parent="VBoxContainer" unique_id=1239319915]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
 theme_override_font_sizes/font_size = 35
 text = "Name"
 
-[node name="Desc" type="Label" parent="Panel" unique_id=1198650801]
-layout_mode = 0
-offset_left = 10.0
-offset_top = 84.0
-offset_right = 207.0
-offset_bottom = 115.0
+[node name="Desc" type="Label" parent="VBoxContainer" unique_id=1198650801]
+layout_mode = 2
 theme_override_font_sizes/font_size = 20
 text = "description"
 
-[node name="AnimatedButton" type="Button" parent="Panel" unique_id=2145348498]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 199.0
-offset_top = 12.0
-offset_right = -12.0
-offset_bottom = -131.0
-text = "Buy this niggas"
+[node name="AnimatedButton" type="Button" parent="VBoxContainer" unique_id=2145348498]
+layout_mode = 2
+size_flags_vertical = 8
+text = "Buy"
 script = ExtResource("2_hx5mn")
 metadata/_custom_type_script = "uid://cpe2ml4pgkvvj"
