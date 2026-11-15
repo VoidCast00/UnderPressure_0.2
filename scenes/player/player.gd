@@ -1,6 +1,9 @@
 class_name Player
 extends CharacterBody2D
 
+
+var glowStickScene:PackedScene = preload("res://scenes/items/glowStick/glow_stick.tscn")
+
 #movement==================================================
 @export var speed: float = 200
 @export var friction: float = 0.4
@@ -27,6 +30,7 @@ var mining_state_last_frame:bool = false
 @onready var timer: Timer = $Timer
 @onready var point_light_2d: PointLight2D = $PointLight2D
 
+@export var glow_sticks: Node2D
 
 
 func _physics_process(delta: float) -> void:
@@ -34,6 +38,8 @@ func _physics_process(delta: float) -> void:
 
 
 func _process(delta: float) -> void:
+	if Input.is_action_just_pressed("throw"):
+		throwGlowstick()
 	Inventory.oxygen -= delta
 	mine(delta)
 	
@@ -61,6 +67,7 @@ func move(delta: float) -> void:
 	if is_clicking():
 		rotation = lerp_angle(rotation, global_position.angle_to_point(get_global_mouse_position()) + PI * 0.5, (rotation_speed * delta) )
 	move_and_slide()
+
 
 #mine=======================================================================
 var is_lasering := false
@@ -118,6 +125,16 @@ func show_laser(target: Vector2) -> void:
 		laser.to_local(shooting_point.global_position),
 		laser.to_local(target)
 	])
+
+
+func throwGlowstick() -> void:
+	var glowStick: RigidBody2D = glowStickScene.instantiate()
+	glow_sticks.add_child(glowStick)
+	glowStick.global_position = global_position
+	var dir := (get_global_mouse_position() - global_position).normalized()
+	glowStick.rotation = global_position.angle_to_point(get_global_mouse_position())
+	glowStick.linear_velocity = dir * 100.0
+	
 
 
 func _on_timer_timeout() -> void:
