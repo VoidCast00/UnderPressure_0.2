@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://cr4et82b0traw"]
+
+[ext_resource type="Texture2D" uid="uid://cx6rsdrvfk5lo" path="res://scenes/items/glowStick/image.png" id="1_hmyx3"]
+
+[sub_resource type="Gradient" id="Gradient_5ojek"]
+offsets = PackedFloat32Array(0, 0.92574257)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_3aygq"]
+gradient = SubResource("Gradient_5ojek")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.8803419, 0.102564104)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3aygq"]
+size = Vector2(3, 16)
+
+[node name="GlowStick" type="RigidBody2D" unique_id=650172477]
+collision_layer = 8
+collision_mask = 15
+gravity_scale = 0.0
+
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=1185784748]
+scale = Vector2(6.375, 6.375)
+color = Color(0.2627451, 0.8862745, 0.29411766, 0.7529412)
+energy = 4.0
+blend_mode = 2
+shadow_enabled = true
+shadow_filter = 2
+texture = SubResource("GradientTexture2D_3aygq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=747924300]
+position = Vector2(2.1855694e-08, -0.5)
+rotation = 1.5707964
+shape = SubResource("RectangleShape2D_3aygq")
+
+[node name="Image" type="Sprite2D" parent="." unique_id=799414289]
+texture_filter = 1
+rotation = 1.5707964
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_hmyx3")
