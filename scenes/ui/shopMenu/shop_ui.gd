@@ -1,8 +1,8 @@
 extends Control
 
-@export var itemScene:PackedScene
 @onready var buy: PanelContainer = $Pages/Buy
 @onready var sell: PanelContainer = $Pages/Sell
+@onready var items: Panel = $Pages/Items
 @export var item_list: VBoxContainer
 @export var sell_value: Label 
 @export var Sell_All: AnimatedButton 
@@ -15,11 +15,13 @@ var money_tween: Tween
 @export var back0: AnimatedButton
 @export var back1: AnimatedButton
 @export var UPGRADE_OBJECT:PackedScene
+@export var sellMaterialScene:PackedScene
+@export var BuyItem:PackedScene
 @export var upgradesList: VBoxContainer
 @export var trait_upgrades: VBoxContainer
+@export var itemsList: VBoxContainer
 
 func _ready() -> void:
-	Sell_All.pressed.connect(sellAll)
 	back0.pressed.connect(go_back)
 	back1.pressed.connect(go_back)
 	var temp_trait_upgrades_list:Array;
@@ -34,15 +36,25 @@ func _ready() -> void:
 	temp_trait_upgrades_list.shuffle()
 	for i in range(3):
 		trait_upgrades.add_child(temp_trait_upgrades_list[i])
+	
+	
+	for id in Upgrades.Items:
+		var Item:BuyingObjUI = BuyItem.instantiate()
+		Item.itemName = str(id["name"])
+		Item.description = str(id["desc"])
+		Item.cost = str(id["cost"])
+		itemsList.add_child(Item)
+		
 func _on_buy_pressed() -> void:
 	sell.hide()
+	items.hide()
 	buy.show()
 	buttons.hide()
 
 
 func updateSellItemList() -> void:
 	for item in Inventory.items:
-		var itemObj:ItemObjUI= itemScene.instantiate()
+		var itemObj:ItemObjUI= sellMaterialScene.instantiate()
 		itemObj.itemCount = Inventory.items[item]
 		itemObj.itemName = str(item)
 		itemObj.sellAmount = Global.SELL_PRICES.get(item, 0)
@@ -50,33 +62,26 @@ func updateSellItemList() -> void:
 		item_list.add_child(itemObj)
 
 
+
 func _on_sell_pressed() -> void:
 	sell.show()
+	items.hide()
 	buy.hide()
 	buttons.hide()
 	updateSellItemList()
+	
+func _on_items_pressed() -> void:
+	items.show()
+	sell.hide()
+	buy.hide()
+	buttons.hide()
+
 
 func go_back() -> void:
 	sell.hide()
 	buy.hide()
 	buttons.show()
 	
-
-
-func sellAll() -> void:
-	buttons.hide()
-	var sell_value := 0
-	for item in Inventory.items:
-		sell_value += Global.SELL_PRICES.get(item, 0) * Inventory.items[item]
-	#nothing to sell
-	if sell_value <= 0:
-		return
-	Inventory.cash += sell_value
-	Inventory.items.clear()
-
-	spawnMoneyParticle(sell_value)
-	updateSellItemList()
-
 
 func spawnMoneyParticle(sell_value: int) -> void:
 	#reset

@@ -626,7 +626,7 @@ terrain_set_0/terrain_0/color = Color(0.010794957, 0.004454754, 0.267876, 1)
 sources/0 = SubResource("TileSetAtlasSource_em1bs")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pd0ml"]
-radius = 28.071337
+radius = 51.009804
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_pd0ml"]
 shader = ExtResource("12_lob5d")
@@ -744,7 +744,7 @@ polygon = PackedVector2Array(5, 12, 8, 23, 14, 30, 21, 29, 28, 23, 26, 18, 20, 2
 collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Static/TransportUp/Enter" unique_id=1695575211]
-position = Vector2(18, 17)
+position = Vector2(16, -8)
 shape = SubResource("CircleShape2D_pd0ml")
 
 [node name="Press_E" type="Label" parent="Static/TransportUp" unique_id=894248459]

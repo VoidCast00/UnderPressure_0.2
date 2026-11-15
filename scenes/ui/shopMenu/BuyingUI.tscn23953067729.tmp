@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cgl2trpwxfw1n"]
 
 [ext_resource type="Script" uid="uid://belg2q2hjeqgx" path="res://scenes/ui/shopMenu/shop_ui.gd" id="1_lf3py"]
-[ext_resource type="PackedScene" uid="uid://chaugulbspsm5" path="res://scenes/ui/Item/item.tscn" id="2_afst3"]
+[ext_resource type="PackedScene" uid="uid://chaugulbspsm5" path="res://scenes/ui/materialSell/materialSellPoint.tscn" id="2_afst3"]
 [ext_resource type="Script" uid="uid://cpe2ml4pgkvvj" path="res://scenes/AnimatedButton/animated_button.gd" id="2_jgblb"]
 [ext_resource type="PackedScene" uid="uid://tbdgcsql6byc" path="res://scenes/ui/UpgradeUI/upgrade.tscn" id="4_8f7lt"]
 
@@ -90,7 +90,7 @@ base_font = SubResource("SystemFont_8f7lt")
 variation_embolden = 2.0
 variation_transform = Transform2D(1.11, 0, -0.25, 1.57, 0, 0)
 
-[node name="ShopUI" type="Control" unique_id=1585925505 node_paths=PackedStringArray("item_list", "sell_value", "Sell_All", "MoneyParticle", "timer", "buttons", "back0", "back1", "upgradesList", "trait_upgrades")]
+[node name="ShopUI" type="Control" unique_id=1585925505 node_paths=PackedStringArray("item_list", "sell_value", "Sell_All", "MoneyParticle", "timer", "buttons", "back0", "back1", "upgradesList", "trait_upgrades", "itemsList")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -110,6 +110,7 @@ back1 = NodePath("Pages/Buy/HBoxContainer/VBoxContainer/HBoxContainer/Back")
 UPGRADE_OBJECT = ExtResource("4_8f7lt")
 upgradesList = NodePath("Pages/Buy/HBoxContainer/VBoxContainer/ScrollContainer/Upgrades")
 trait_upgrades = NodePath("Pages/Buy/HBoxContainer/VBoxContainer2/ScrollContainer2/trait_upgrades")
+itemsList = NodePath("Pages/Items/ItemsList")
 
 [node name="Panel" type="Panel" parent="." unique_id=1774445215]
 layout_mode = 1
@@ -126,16 +127,16 @@ anchors_preset = 14
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = 483.0
-offset_top = -153.0
-offset_right = -483.0
-offset_bottom = 153.0
+offset_left = 253.0
+offset_top = -126.0
+offset_right = -231.0
+offset_bottom = 169.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 120
 alignment = 1
 
-[node name="Buy" type="Button" parent="Buttons" unique_id=1810060859]
+[node name="Upgrades" type="Button" parent="Buttons" unique_id=1810060859]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.73783386, 0.66585124, 0.6433071, 1)
@@ -143,7 +144,20 @@ theme_override_font_sizes/font_size = 100
 theme_override_styles/normal = SubResource("StyleBoxFlat_eiwcj")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_afst3")
 theme_override_styles/hover = SubResource("StyleBoxFlat_8f7lt")
-text = "Buy"
+text = "Upgrade"
+script = ExtResource("2_jgblb")
+metadata/_custom_type_script = "uid://cpe2ml4pgkvvj"
+
+[node name="Items" type="Button" parent="Buttons" unique_id=1807070764]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.73783386, 0.66585124, 0.6433071, 1)
+theme_override_font_sizes/font_size = 100
+theme_override_styles/normal = SubResource("StyleBoxFlat_eiwcj")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_afst3")
+theme_override_styles/hover = SubResource("StyleBoxFlat_8f7lt")
+text = "Items
+"
 script = ExtResource("2_jgblb")
 metadata/_custom_type_script = "uid://cpe2ml4pgkvvj"
 
@@ -357,6 +371,19 @@ text = " SELL ALL!! "
 script = ExtResource("2_jgblb")
 metadata/_custom_type_script = "uid://cpe2ml4pgkvvj"
 
+[node name="Items" type="Panel" parent="Pages" unique_id=212350302]
+visible = false
+layout_mode = 0
+offset_left = -942.0
+offset_top = -520.0
+offset_right = 995.0
+offset_bottom = 600.0
+
+[node name="ItemsList" type="VBoxContainer" parent="Pages/Items" unique_id=304484104]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
 [node name="MoneyParticle" type="RigidBody2D" parent="." unique_id=1485607575]
 visible = false
 position = Vector2(921.715, 510)
@@ -380,6 +407,7 @@ text = "100$"
 [node name="Timer" type="Timer" parent="MoneyParticle" unique_id=1381803116]
 wait_time = 2.0
 
-[connection signal="pressed" from="Buttons/Buy" to="." method="_on_buy_pressed"]
+[connection signal="pressed" from="Buttons/Upgrades" to="." method="_on_buy_pressed"]
+[connection signal="pressed" from="Buttons/Items" to="." method="_on_items_pressed"]
 [connection signal="pressed" from="Buttons/Sell" to="." method="_on_sell_pressed"]
 [connection signal="timeout" from="MoneyParticle/Timer" to="." method="_on_timer_timeout"]

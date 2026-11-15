@@ -8,11 +8,11 @@ extends Node
 #seconds to mine each material
 const MINING_TIMES := {
 	"rock": 0.3,
-	"iron": 0.8,
-	"gold": 1.2,
-	"amethyst": 1.0,
-	"ruby": 1.6,
-	"osmium": 2.5,
+	"iron": 0.6,
+	"gold": 1.0,
+	"amethyst": 0.9,
+	"ruby": 1.5,
+	"osmium": 2.7,
 }
 
 #crack overlay while mining (one png per stage, 32x32, redraw them if you want)

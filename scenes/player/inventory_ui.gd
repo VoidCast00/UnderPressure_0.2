@@ -19,8 +19,10 @@ func _process(delta: float) -> void:
 	cash.text = "cash :"+str(Inventory.cash)
 	if Input.is_action_pressed("inventory"):
 		visible = true
+		cash.visible = false
 	else:
 		visible = false
+		cash.visible = true
 
 func _ready() -> void:
 	_style()

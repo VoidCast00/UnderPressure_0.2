@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://chaugulbspsm5"]
 
-[ext_resource type="Script" uid="uid://cpe2ml4pgkvvj" path="res://scenes/AnimatedButton/animated_button.gd" id="1_81gf3"]
-[ext_resource type="Script" uid="uid://ckl5r7j0wuhu8" path="res://scenes/ui/Item/item.gd" id="1_y144f"]
+[ext_resource type="Script" uid="uid://ckl5r7j0wuhu8" path="res://scenes/ui/materialSell/itemToSell.gd" id="1_3w3rt"]
+[ext_resource type="Script" uid="uid://cpe2ml4pgkvvj" path="res://scenes/AnimatedButton/animated_button.gd" id="2_f3cv8"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jgblb"]
 bg_color = Color(0.087226965, 0.31827793, 0.15539667, 1)
@@ -41,7 +41,7 @@ shadow_offset = Vector2(8, 5)
 
 [node name="Item" type="PanelContainer" unique_id=649771014]
 theme_override_styles/panel = SubResource("StyleBoxFlat_jgblb")
-script = ExtResource("1_y144f")
+script = ExtResource("1_3w3rt")
 
 [node name="HBox" type="HBoxContainer" parent="." unique_id=1319891233]
 layout_mode = 2
@@ -76,5 +76,5 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_afst3")
 theme_override_styles/hover = SubResource("StyleBoxFlat_8f7lt")
 text = "Sell
 "
-script = ExtResource("1_81gf3")
+script = ExtResource("2_f3cv8")
 metadata/_custom_type_script = "uid://cpe2ml4pgkvvj"

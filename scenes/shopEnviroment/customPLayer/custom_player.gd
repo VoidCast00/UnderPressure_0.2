@@ -20,7 +20,7 @@ func _physics_process(delta: float) -> void:
 	# Handle jump.
 		if Input.is_action_just_pressed("jump") and is_on_floor():
 			pass
-			#velocity.y = JUMP_VELOCITY
+			velocity.y = JUMP_VELOCITY
 			
 		if direction > 0:
 				animated_sprite.flip_h = false
@@ -35,8 +35,8 @@ func _physics_process(delta: float) -> void:
 					animated_sprite.play("walking")
 		
 		else:
-			pass
-			#animated_sprite.play("jump")	jump
+			
+			animated_sprite.play("jump")	
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.

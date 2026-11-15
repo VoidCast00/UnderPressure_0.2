@@ -149,7 +149,13 @@ const ALL := {
 		"per_upgrade": 0.075,
 	},
 }
-
+const Items := {
+	"Glowstick": {
+		"name": "Glowstick",
+		"desc": "Emit green light on small radius and have basic physics",
+		"cost": 3,
+	}
+}
 
 #id -> level
 var upgradeItems := {}

@@ -11,7 +11,7 @@ signal mined(type:String)
 const SELL_PRICES := {
 	"rock": 1,
 	"iron": 4,
-	"gold": 9,
+	"gold": 10,
 	"amethyst": 12,
 	"ruby": 22,
 	"osmium": 40,
