@@ -97,7 +97,9 @@ func _process(delta: float) -> void:
 	item.oreType = mining_type          
 	items.add_child(item)
 	item.global_position = cave.oreTilemap.to_global(cave.oreTilemap.map_to_local(mining_cell))
-	item.linear_velocity = Vector2.from_angle(randf() * TAU) * randf_range(10.0, 40.0)
+	item.linear_velocity = Vector2.from_angle(randf() * TAU) * randf_range(10.0, 100.0)
+	item.global_rotation = randf() * TAU
+	item.angular_velocity = randf() * TAU * 1.5
 
 
 	
