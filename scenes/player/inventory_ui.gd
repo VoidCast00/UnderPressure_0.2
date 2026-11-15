@@ -86,10 +86,11 @@ func refresh() -> void:
 	var names: Array = inventory.items.keys()
 	names.sort()
 	for item in names:
+		print(inventory.items[item])
 		add_row(item, inventory.items[item])
 
 
-func add_row(item: String, amount: int) -> void:
+func add_row(item: String, amount: float) -> void:
 	var row := HBoxContainer.new()
 
 	#name

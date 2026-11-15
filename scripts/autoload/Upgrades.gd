@@ -167,21 +167,13 @@ var dive_mined := {}
 var gold_for_slots := 0
 var bonus_slots := 0
 
-
-func _ready() -> void:
-	Global.mined.connect(_on_mined)
-	Global.loadWaterEnviroment.connect(_on_dive_start)
-
-
 #current value of an upgrade
 func value(id: String) -> float:
 	var data: Dictionary = ALL[id]
 	return data["default"] + data["per_upgrade"] * get_level(id)
 
-
 func get_level(id: String) -> int:
 	return upgradeItems.get(id, 0)
-
 
 func get_cost(id: String) -> int:
 	return int(ALL[id]["cost"] * pow(COST_GROWTH, get_level(id)))

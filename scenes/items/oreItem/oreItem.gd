@@ -3,6 +3,8 @@ extends RigidBody2D
 
 const MAGNET_SPEED := 300.0
 const MAGNET_ACCEL := 1500.0
+const invervalDown := 0.95
+const intervalUp := 1.10
 
 var oreType: String = ""
 var magnet: bool = false
@@ -15,7 +17,7 @@ func _physics_process(delta: float) -> void:
 
 func _on_pick_up_range_body_entered(body: Node2D) -> void:
 	if body is Player:
-		Global.itemPickedUp.emit(oreType)
+		Inventory.add(oreType, snapped(randf_range(invervalDown, intervalUp),0.01))
 		queue_free()
 
 func _on_magnet_range_body_entered(body: Node2D) -> void:

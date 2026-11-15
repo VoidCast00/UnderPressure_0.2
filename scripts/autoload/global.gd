@@ -5,8 +5,6 @@ signal loadWaterEnviroment;
 signal loadShopEnviroment;
 signal exitGame;
 
-signal mined(type:String)
-signal itemPickedUp(type:String)
 #money you get for selling one of each material
 const SELL_PRICES := {
 	"rock": 1,
@@ -16,7 +14,6 @@ const SELL_PRICES := {
 	"ruby": 22,
 	"osmium": 40,
 }
-
 
 var quota:int = 190;
 var day:int =  0; #for the start to start counting

@@ -1,6 +1,6 @@
 extends  Node
 
-signal changed(item: String, amount: int)
+signal changed(item: String, amount: float)
 signal oxygenDepleted
 
 var cash:int = 0:
@@ -35,12 +35,11 @@ var energy: float = 100
 var items: Dictionary = {}
 
 func _ready() -> void:
-	Global.itemPickedUp.connect(add)
 	#here and not above, Upgrades doesnt exist yet when variables are created
 	oxygen = oxygenTankSize
 
 #add (only what fits)
-func add(item: String, amount: int = 1) -> void:
+func add(item: String, amount: float) -> void:
 	if item not in FREE_ITEMS:
 		amount = mini(amount, space_left())
 		if amount <= 0:
@@ -48,7 +47,6 @@ func add(item: String, amount: int = 1) -> void:
 
 	items[item] = get_amount(item) + amount
 	changed.emit(item, items[item])
-
 
 #remove (returns false if not enough)
 func remove(item: String, amount: int = 1) -> bool:
@@ -69,7 +67,7 @@ func has(item: String, amount: int = 1) -> bool:
 
 
 #get amount
-func get_amount(item: String) -> int:
+func get_amount(item: String) -> float:
 	return items.get(item, 0)
 
 
