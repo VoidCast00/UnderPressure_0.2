@@ -40,9 +40,9 @@ func _ready() -> void:
 	
 	for id in Upgrades.Items:
 		var Item:BuyingObjUI = BuyItem.instantiate()
-		Item.itemName = str(id["name"])
-		Item.description = str(id["desc"])
-		Item.cost = str(id["cost"])
+		Item.itemName = str(Upgrades.Items[id]["name"])
+		Item.description = str(Upgrades.Items[id]["desc"])
+		Item.sellAmount = float(Upgrades.Items[id]["cost"])
 		itemsList.add_child(Item)
 		
 func _on_buy_pressed() -> void:
