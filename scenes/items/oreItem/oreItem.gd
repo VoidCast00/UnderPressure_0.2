@@ -3,12 +3,24 @@ extends RigidBody2D
 
 const MAGNET_SPEED := 300.0
 const MAGNET_ACCEL := 1500.0
+@onready var texture: Sprite2D = $Texture
+
 const invervalDown := 0.95
 const intervalUp := 1.10
 
 var oreType: String = ""
 var magnet: bool = false
 var playerRefrence: Player
+
+func _ready() -> void:
+	match oreType:
+		"iron":
+			texture.texture = preload("res://scenes/items/oreItem/IronOreItem.png")
+		"gold":
+			texture.texture = preload("res://scenes/items/oreItem/GoldOreItem.png")
+		"osmium":
+			texture.texture = preload("res://scenes/items/oreItem/OsmiumOreItem.png")
+		
 
 func _physics_process(delta: float) -> void:
 	if magnet and is_instance_valid(playerRefrence):
