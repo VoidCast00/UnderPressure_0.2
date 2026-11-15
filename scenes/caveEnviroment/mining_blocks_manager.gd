@@ -9,9 +9,12 @@ extends Node
 const MINING_TIMES := {
 	"rock": 0.3,
 	"iron": 0.6,
+	"lapis": 0.8,
 	"gold": 1.0,
 	"amethyst": 0.9,
+	"fluorite": 1.1,
 	"ruby": 1.5,
+	"platinum": 2.0,
 	"osmium": 2.7,
 }
 
@@ -36,6 +39,10 @@ const CRACK_SHADER := "res://scenes/caveEnviroment/crack_mask.gdshader"
 @export var amethist_break: AudioStreamPlayer
 @export var ruby_break: AudioStreamPlayer
 @export var osmium_break: AudioStreamPlayer
+#new ores: empty slot = uses iron_break (with its own pitch below) until they get their own sound
+@export var lapis_break: AudioStreamPlayer
+@export var platinum_break: AudioStreamPlayer
+@export var fluorite_break: AudioStreamPlayer
 
 @export var cpu_particles_2d: CPUParticles2D
 @export var after_break_par: CPUParticles2D
@@ -46,7 +53,17 @@ const CRACK_SHADER := "res://scenes/caveEnviroment/crack_mask.gdshader"
 	"gold": gold_break,
 	"amethyst": amethist_break,
 	"ruby": ruby_break,
-	"osmium":osmium_break,
+	"osmium": osmium_break,
+	"lapis": lapis_break,
+	"platinum": platinum_break,
+	"fluorite": fluorite_break,
+}
+
+#pitch center per ore, so ores sharing a sound still sound different (missing = 1.0)
+const BREAK_PITCH := {
+	"lapis": 0.85,
+	"platinum": 1.3,
+	"fluorite": 1.15,
 }
 
 @export var items: Node2D
@@ -104,8 +121,10 @@ func _process(delta: float) -> void:
 
 	
 	var sound: AudioStreamPlayer = break_sounds.get(mining_type)
+	if not sound:
+		sound = iron_break
 	if sound:
-		sound.pitch_scale = randf_range(0.8,1.2)
+		sound.pitch_scale = BREAK_PITCH.get(mining_type, 1.0) * randf_range(0.8, 1.2)
 		sound.play()
 
 	cave.remove_cells([mining_cell])
