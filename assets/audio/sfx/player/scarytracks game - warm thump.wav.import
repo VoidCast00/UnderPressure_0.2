@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dn7ilfcyywx0e"
+path="res://.godot/imported/scarytracks game - warm thump.wav-0c11656b4efe0f43d95361b21b2bfb3a.sample"
+
+[deps]
+
+source_file="res://assets/audio/sfx/player/scarytracks game - warm thump.wav"
+dest_files=["res://.godot/imported/scarytracks game - warm thump.wav-0c11656b4efe0f43d95361b21b2bfb3a.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

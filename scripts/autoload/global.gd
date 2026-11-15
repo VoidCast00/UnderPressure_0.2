@@ -6,13 +6,18 @@ signal loadShopEnviroment;
 signal exitGame;
 
 #money you get for selling one of each material
+#(money per second of mining goes up with rarity, see MINING_TIMES in MiningBlocksManager)
 const SELL_PRICES := {
-	"rock": 1,
-	"iron": 4,
-	"gold": 10,
-	"amethyst": 12,
-	"ruby": 22,
-	"osmium": 40,
+	"rock": 1,       # 3.3 $/s
+	"iron": 4,       # 6.7 $/s
+	"lapis": 7,      # 8.8 $/s
+	"magmarine": 8,  # 8.9 $/s
+	"gold": 10,      #10.0 $/s
+	"amethyst": 12,  #13.3 $/s
+	"fluorite": 15,  #13.6 $/s
+	"ruby": 22,      #14.7 $/s
+	"platinum": 28,  #14.0 $/s
+	"osmium": 40,    #14.8 $/s
 }
 
 const DAYS_PER_QUOTA := 3

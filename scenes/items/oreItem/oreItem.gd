@@ -20,7 +20,21 @@ func _ready() -> void:
 			texture.texture = preload("res://scenes/items/oreItem/GoldOreItem.png")
 		"osmium":
 			texture.texture = preload("res://scenes/items/oreItem/OsmiumOreItem.png")
-		
+		"rock":
+			texture.texture = preload("res://scenes/items/oreItem/StoneOreItem.png")
+		"lapis":
+			texture.texture = preload("res://scenes/items/oreItem/LapisOreItem.png")
+		"platinum":
+			texture.texture = preload("res://scenes/items/oreItem/PlatinumOreItem.png")
+		"fluorite":
+			texture.texture = preload("res://scenes/items/oreItem/FluoriteOreItem.png")
+		"amethyst":
+			texture.texture = preload("res://scenes/items/oreItem/AmethystOreItem.png")
+		"ruby":
+			texture.texture = preload("res://scenes/items/oreItem/RubyOreItem.png")
+		"magmarine":
+			texture.texture = preload("res://scenes/items/oreItem/MagmarineOreItem.png")
+	print(oreType)
 
 func _physics_process(delta: float) -> void:
 	if magnet and is_instance_valid(playerRefrence):
@@ -29,7 +43,18 @@ func _physics_process(delta: float) -> void:
 
 func _on_pick_up_range_body_entered(body: Node2D) -> void:
 	if body is Player:
-		Inventory.add(oreType, snapped(randf_range(invervalDown, intervalUp),0.01))
+		Inventory.add(oreType, snapped(randf_range(invervalDown, intervalUp), 0.01))
+		
+		# stop it from being picked up twice or pulled by the magnet
+		$MagnetRange.queue_free()
+		$PickUpRange.queue_free()
+		
+		magnet = false
+		freeze = true
+		hide()
+		$PickUp.pitch_scale = randf_range(0.88, 1.2)
+		$PickUp.play()
+		await $PickUp.finished
 		queue_free()
 
 func _on_magnet_range_body_entered(body: Node2D) -> void:
