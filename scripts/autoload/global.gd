@@ -22,7 +22,7 @@ const SELL_PRICES := {
 
 const DAYS_PER_QUOTA := 3
 
-var quota:int = 190;
+var quota:int = 250;
 var day:int =  0; #for the start to start counting
 var deadline:int = DAYS_PER_QUOTA;
 var quotaCompletedAmount:int = 0;

@@ -781,6 +781,7 @@ collision_mask = 4
 
 [node name="PointLight2D" type="PointLight2D" parent="." unique_id=1046057679]
 scale = Vector2(8, 8)
+shadow_enabled = true
 shadow_color = Color(0.03529412, 0.039215688, 0.078431375, 1)
 shadow_filter = 2
 shadow_filter_smooth = 0.5

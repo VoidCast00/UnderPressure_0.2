@@ -873,6 +873,7 @@ grow_vertical = 2
 script = ExtResource("5_hyba4")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="Entities/Camera2D" unique_id=663374839]
+top_level = true
 color = Color(0, 0, 0, 1)
 
 [node name="Player" parent="Entities" unique_id=698144906 node_paths=PackedStringArray("cave_tilemap", "mining_manager", "glow_sticks") instance=ExtResource("1_ibr66")]
